@@ -2,7 +2,7 @@
  * Author: <Cole Barbes>
  * Creation Date: <02/06/23>
  * Last Update: <02/06/23>
- * Description: <One paragraph describing the function of the program>
+ * Description: <>
  * User Interface: <List of all user options and short descriptions of each option>
  * Notes: <Any notes that a user of the program should know about>
  */
@@ -136,4 +136,117 @@ int main() {
     B = nullptr;
     
     return 0;
+}
+/////////////////////////////////////////////////////////////////////////////////////////////
+//Description: <One paragraph describing what the function does>
+//Parameters: <List of parameters and their descriptions>
+//Return: <What is returned by the function, if anything is returned>
+//Notes: <Any notes that a user of the program should know about, e.g. pre/post conditions>
+////////////////////////////////////////////////////////////////////////////////////////////
+void div()
+{
+    cout<<endl;
+    cout<<"---------------------------------------------------------------------------"<<endl;
+    cout<<endl;
+}
+/////////////////////////////////////////////////////////////////////////////////////////////
+//Description: <One paragraph describing what the function does>
+//Parameters: <List of parameters and their descriptions>
+//Return: <What is returned by the function, if anything is returned>
+//Notes: <Any notes that a user of the program should know about, e.g. pre/post conditions>
+////////////////////////////////////////////////////////////////////////////////////////////
+int* duplicateArray(int* arr, int n)
+{
+    int* newArr = new int[n];
+    
+    for(int i = 0; i<n;i++)
+        newArr[i]=arr[i];
+    
+    return newArr;
+}
+/////////////////////////////////////////////////////////////////////////////////////////////
+//Description: <One paragraph describing what the function does>
+//Parameters: <List of parameters and their descriptions>
+//Return: <What is returned by the function, if anything is returned>
+//Notes: <Any notes that a user of the program should know about, e.g. pre/post conditions>
+////////////////////////////////////////////////////////////////////////////////////////////
+void display(int* arr, int n)
+{
+    for(int i =0; i<n; i++)
+        cout<<arr[n]<<" ";
+    
+    cout<<endl;
+}
+/////////////////////////////////////////////////////////////////////////////////////////////
+//Description: <One paragraph describing what the function does>
+//Parameters: <List of parameters and their descriptions>
+//Return: <What is returned by the function, if anything is returned>
+//Notes: <Any notes that a user of the program should know about, e.g. pre/post conditions>
+////////////////////////////////////////////////////////////////////////////////////////////
+int* getRandomNumbers(int n)
+{
+    
+}
+/////////////////////////////////////////////////////////////////////////////////////////////
+//Description: <One paragraph describing what the function does>
+//Parameters: <List of parameters and their descriptions>
+//Return: <What is returned by the function, if anything is returned>
+//Notes: <Any notes that a user of the program should know about, e.g. pre/post conditions>
+////////////////////////////////////////////////////////////////////////////////////////////
+void sort(int* &arr, int n)
+{
+}
+/////////////////////////////////////////////////////////////////////////////////////////////
+//Description: <One paragraph describing what the function does>
+//Parameters: <List of parameters and their descriptions>
+//Return: <What is returned by the function, if anything is returned>
+//Notes: <Any notes that a user of the program should know about, e.g. pre/post conditions>
+////////////////////////////////////////////////////////////////////////////////////////////
+bool sorted(int* arr, int n)
+{
+}
+/////////////////////////////////////////////////////////////////////////////////////////////
+//Description: <One paragraph describing what the function does>
+//Parameters: <List of parameters and their descriptions>
+//Return: <What is returned by the function, if anything is returned>
+//Notes: <Any notes that a user of the program should know about, e.g. pre/post conditions>
+////////////////////////////////////////////////////////////////////////////////////////////
+void concat(int* arr1, int n1, int* arr2, int n2)
+{
+}
+/////////////////////////////////////////////////////////////////////////////////////////////
+//Description: <One paragraph describing what the function does>
+//Parameters: <List of parameters and their descriptions>
+//Return: <What is returned by the function, if anything is returned>
+//Notes: <Any notes that a user of the program should know about, e.g. pre/post conditions>
+////////////////////////////////////////////////////////////////////////////////////////////
+void remove(int* &arr, int n, int StartI, int EndI)
+{
+}
+/////////////////////////////////////////////////////////////////////////////////////////////
+//Description: <One paragraph describing what the function does>
+//Parameters: <List of parameters and their descriptions>
+//Return: <What is returned by the function, if anything is returned>
+//Notes: <Any notes that a user of the program should know about, e.g. pre/post conditions>
+////////////////////////////////////////////////////////////////////////////////////////////
+void sub(int* arr, int n, int StartI, int EndI)
+{
+}
+/////////////////////////////////////////////////////////////////////////////////////////////
+//Description: <One paragraph describing what the function does>
+//Parameters: <List of parameters and their descriptions>
+//Return: <What is returned by the function, if anything is returned>
+//Notes: <Any notes that a user of the program should know about, e.g. pre/post conditions>
+////////////////////////////////////////////////////////////////////////////////////////////
+void insert(int* arr1, int size1, int* arr2, int size2, int itervar)
+{
+}
+/////////////////////////////////////////////////////////////////////////////////////////////
+//Description: <One paragraph describing what the function does>
+//Parameters: <List of parameters and their descriptions>
+//Return: <What is returned by the function, if anything is returned>
+//Notes: <Any notes that a user of the program should know about, e.g. pre/post conditions>
+//////////////////////////////////////////////////////////////////////////////////////////// 
+void resize(int* arr, int n, int newSize)
+{
 }
