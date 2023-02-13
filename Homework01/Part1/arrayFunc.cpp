@@ -1,15 +1,9 @@
-#include "arrayFunc.h"
 /*
 * This is the implementation file for my functions.
 * Creater: Cole Barbes
 * Creation date: 2/11/23
 */
-
-
-
-
-
-
+#include "arrayFunc.h"
 
 /////////////////////////////////////////////////////////////////////////////////////////////
 //Description: <This function simply prints space and a line to seperate output later.>
@@ -86,7 +80,7 @@ void swap(int* arr, int n1, int n2) {
 ////////////////////////////////////////////////////////////////////////////////////////////
 void sort(int* arr, int n)
 {
-    int i, j, minIdx;
+    int i, minIdx;
     for(i=0; i<n-1; i++){
         minIdx = i;
         for(int j = i+1; j<n; j++){
