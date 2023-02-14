@@ -19,28 +19,27 @@ double hourConv(int, int, int);
 int main()
 {
 
-    ifstream dataFile;
-    string fileName = "";
-    string name = "";
-    string line = "";
-    bool fileStatus = false;
-    int lineCount = 0;
-    int dataCount = 0;
+    ifstream dataFile;// dataFile
+    string fileName = "";// file name
+    string name = "";// name of the person
+    string line = "";//line variable to hold each line
+    bool fileStatus = false;// boolean for whether the file opens or not 
+    int lineCount = 0;// line count variable
+    int dataCount = 0;// data count variable
     
-
+    //ask for the file type
     cout<<"Input the file name: ";
     cin>>fileName;
 
-    fileStatus = status(dataFile, fileName);
+    fileStatus = status(dataFile, fileName);// file status function call
 
-    lineCount = lineCounter(dataFile, fileName);
+    lineCount = lineCounter(dataFile, fileName);// line counter
     
-    cout<<lineCount<<endl;
+    
     PersonTimeData* dataBase = new PersonTimeData[lineCount];
 
     for(int i = 0; i<lineCount; i++){
         getline(dataFile, line);
-
         name = line.substr(line.find('"')+1, line.find('"',2)-1);
         line = line.substr(line.find('"', line.find('"', 1))+2);
 
@@ -50,6 +49,7 @@ int main()
             if(line.at(i) == '"') dataCount++;
         }
         dataCount = (dataCount/2);
+        cout<<line<<endl;
         //
         cout<<dataCount<<endl;
         dataBase[i].name = name;
@@ -127,8 +127,6 @@ int lineCounter(ifstream &dataFile, string name){
     dataFile.close();
     dataFile.open(name);
 
-    getline(dataFile, lineHolder);
-
     return (lineCount+1);
 }
 
@@ -147,10 +145,10 @@ double hourConv(int hours, int minutes, int seconds)
     sec = sec/3600;
     min = min/60;
     h = (double)hours;
+    cout<<sec<<" "<<min<<" "<<h<<endl;
     double totalHours = 0;
-
+    
     totalHours = (h+min+sec);
-
     return totalHours;
 }
 
@@ -162,20 +160,22 @@ double hourConv(int hours, int minutes, int seconds)
 double* initDoubleArray(string lineHolder, int dataCount)
 {
     string word = "";
-    int ch1 = 0;
-    int ch2 = 0;
-    int ch3 = 0;
+    
     string line = lineHolder;
     double* tmpArr = new double[dataCount];
-
     for(int k = 0; k<dataCount; k++){
+        int ch1 = 0;
+        int ch2 = 0;
+        int ch3 = 0;
         word = line.substr(line.find('"')+1, line.find('"', 1)-1);
         ch1 = stoi(word.substr(0, word.find('-')));
         word = word.substr(word.find('-')+1);
         ch2 = stoi(word.substr(0, word.find('-')));
         word = word.substr(word.find('-')+1);
-        ch3 = stoi(word.substr(0, word.find('-')));
+        ch3 = stoi(word.substr(0, word.find('"')));
         tmpArr[k] = hourConv(ch1, ch2, ch3);
+        line = line.substr(line.find('"', 1)+2);
+        
     }
     for(int j = 0; j<dataCount; j++){
         cout<<tmpArr[j]<<endl;

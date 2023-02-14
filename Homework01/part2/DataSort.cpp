@@ -90,24 +90,31 @@ int main()
 
         cout<<"Select a state"<<endl;
 
+        //for loop to print states
         for(int i = 0; i<lineCount; i++){
             cout<<(i+1)<<". "<<states[i].state<<endl;
         }
 
-        cout<<"Selection: ";
-        cin>>stateSelect;
-        cout<<endl;
-
+        //user verification
+        while(stateSelect<1||stateSelect>lineCount){
+            cout<<"Selection: ";
+            cin>>stateSelect;
+            cout<<endl;
+        }
         div();
 
         cout<<"Select a Year "<<endl;
+        // for loop to print the years
         for(int i = 0; i<dataCount; i++){
             cout<<years[i]<<" "<<endl;
         }
 
-        cout<<"Selection:";
-        cin>>yearSelect;
-        cout<<endl;
+        //user verification
+        while(yearSelect<years[0]||yearSelect>years[(dataCount-1)]){
+            cout<<"Selection:";
+            cin>>yearSelect;
+            cout<<endl;
+        }
 
         yearSelect = (dataCount-((years[(dataCount-1)])-yearSelect)-1);//find the correct array index to print
 
@@ -167,13 +174,16 @@ bool status(ifstream &dataFile, string name){
 //Notes: <This should help keep the code simple later on.>
 //////////////////////////////////////////////////////////////////////////////////////////// 
 int lineCounter(ifstream &dataFile, string name){
-    string lineHolder;
-    int lineCount = 0;
-    int commaCount= 0;
-    getline(dataFile, lineHolder);
+
+    string lineHolder = "";// hold the line so it can be overwritten
+    int lineCount = 0;//line count var
+    int commaCount= 0;//comma counter var
+
+    getline(dataFile, lineHolder);// get the line from the file
     
-    
+    //loop through the file
     while(dataFile >> lineHolder){
+        //loop to find the comma count
         for(int i = 0; i<lineHolder.length(); i++){
             if(lineHolder.at(i) == ',') commaCount++;
         }
@@ -182,10 +192,10 @@ int lineCounter(ifstream &dataFile, string name){
         commaCount = 0;
     }
 
-    dataFile.close();
-    dataFile.open(name);
+    dataFile.close();//close the file
+    dataFile.open(name);// open file
 
-    getline(dataFile, lineHolder);
+    getline(dataFile, lineHolder);// get the first line 
 
     return (lineCount+1);
 }
@@ -197,16 +207,17 @@ int lineCounter(ifstream &dataFile, string name){
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 double* initDoubleArray(string lineHolder, int dataCount)
 {
-    string word = "";
-    string line = lineHolder;
-    double* tmpArr = new double[dataCount];
+    string word = "";// hold the word each iteration 
+    string line = lineHolder;//store the line 
+    double* tmpArr = new double[dataCount];//temporary array
 
+    //loop to pull in the data
     for(int k = 0; k<(dataCount-1); k++){
-        word = line.substr(0, line.find(','));
-        tmpArr[k] = stod(word);
-        line = line.substr(line.find(',')+1);
+        word = line.substr(0, line.find(','));// word grabber
+        tmpArr[k] = stod(word);// set into the array with stod
+        line = line.substr(line.find(',')+1);//get new line
     }
-    tmpArr[(dataCount-1)] = stod(line);
+    tmpArr[(dataCount-1)] = stod(line);// grab the last element 
 
     return tmpArr;
 }
@@ -218,14 +229,16 @@ double* initDoubleArray(string lineHolder, int dataCount)
 //////////////////////////////////////////////////////////////////////////////////////////// 
 int* initIntArray(string lineHolder, int dataCount)
 {
-    string line = lineHolder;
-    int* tmpArr = new int[dataCount];
+    string line = lineHolder;// get the line
+    int* tmpArr = new int[dataCount];// create dynamic array 
+
+    //loop to get the data for the year array
     for(int k = 0; k<(dataCount-1); k++){
-        string word = line.substr(0, line.find(','));
-        tmpArr[k] = stoi(word);
-        line = line.substr(line.find(',')+1);
+        string word = line.substr(0, line.find(','));// get the word 
+        tmpArr[k] = stoi(word);// set into array
+        line = line.substr(line.find(',')+1);//get new line
     }
-    tmpArr[(dataCount-1)] = stoi(line);
+    tmpArr[(dataCount-1)] = stoi(line);//grab the last element
 
     return tmpArr;
 }

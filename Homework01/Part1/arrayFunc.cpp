@@ -17,6 +17,7 @@ void div()
     cout<<"---------------------------------------------------------------------------"<<endl;
     cout<<endl;
 }
+
 /////////////////////////////////////////////////////////////////////////////////////////////
 //Description: <This array takes and existing array and copies it. >
 //Parameters: <A pointer to an array and the size of the array>
@@ -25,58 +26,60 @@ void div()
 ////////////////////////////////////////////////////////////////////////////////////////////
 int* duplicateArray(int* arr, int n)
 {
-    int* newArr = new int[n];
+    int* newArr = new int[n];// create dynamic array
     
+    //loop to get elements from array being duplicated
     for(int i = 0; i<n;i++)
         newArr[i]=arr[i];
     
     return newArr;
 }
+
 /////////////////////////////////////////////////////////////////////////////////////////////
 //Description: <This function prints a given array>
 //Parameters: <pointer to a dynamic array of size n, integer n>
 //Return: <no return, just print >
-//Notes: <Any notes that a user of the program should know about, e.g. pre/post conditions>
 ////////////////////////////////////////////////////////////////////////////////////////////
 void display(int* arr, int n)
 {
+    //loop to print array
     for(int i =0; i<n; i++)
         cout<<arr[i]<<" ";
     
     cout<<endl;
 }
+
 /////////////////////////////////////////////////////////////////////////////////////////////
-//Description: <One paragraph describing what the function does>
-//Parameters: <List of parameters and their descriptions>
-//Return: <What is returned by the function, if anything is returned>
-//Notes: <Any notes that a user of the program should know about, e.g. pre/post conditions>
+//Description: <initialize a random number array>
+//Parameters: <integer size of the array>
+//Return: <return memory address of integer array>
 ////////////////////////////////////////////////////////////////////////////////////////////
 int* getRandomNumbers(int n)
 {
-    int* tmpArr = new int[n];
+    int* tmpArr = new int[n];//create dynamic array of ints
     
+    // set random numbers into it
     for(int i = 0; i<n; i++)
-        *(tmpArr+i) = (rand()%10)+1;
+        *(tmpArr+i) = rand();
     
     return tmpArr;
     
 }
+
 /////////////////////////////////////////////////////////////////////////////////////////////
-//Description: <This function swaps 2 elements>
-//Parameters: <List of parameters and their descriptions>
-//Return: <What is returned by the function, if anything is returned>
-//Notes: <Any notes that a user of the program should know about, e.g. pre/post conditions>
+//
+//                   <This function swaps 2 elements>
+//
 ////////////////////////////////////////////////////////////////////////////////////////////
 void swap(int* arr, int n1, int n2) {
     int temp = *(arr + n1);
     *(arr + n1) = *(arr + n2);
     *(arr + n2) = temp;
 }
+
 /////////////////////////////////////////////////////////////////////////////////////////////
-//Description: <One paragraph describing what the function does>
-//Parameters: <List of parameters and their descriptions>
-//Return: <What is returned by the function, if anything is returned>
-//Notes: <Any notes that a user of the program should know about, e.g. pre/post conditions>
+//Description: <Sort a given array>
+//Parameters: <int array and size n>
 ////////////////////////////////////////////////////////////////////////////////////////////
 void sort(int* arr, int n)
 {
@@ -94,11 +97,10 @@ void sort(int* arr, int n)
         }
     }
 }
+
 /////////////////////////////////////////////////////////////////////////////////////////////
 //Description: <This Function recursively checks if the array is sorted.>
-//Parameters: <List of parameters and their descriptions>
-//Return: <What is returned by the function, if anything is returned>
-//Notes: <Any notes that a user of the program should know about, e.g. pre/post conditions>
+//Parameters: <int array, and size n>
 ////////////////////////////////////////////////////////////////////////////////////////////
 bool sorted(int* arr, int n)
 {
@@ -112,35 +114,39 @@ bool sorted(int* arr, int n)
     else
         return sorted(arr, size);
 }
+
 /////////////////////////////////////////////////////////////////////////////////////////////
-//Description: <One paragraph describing what the function does>
-//Parameters: <List of parameters and their descriptions>
-//Return: <What is returned by the function, if anything is returned>
-//Notes: <Any notes that a user of the program should know about, e.g. pre/post conditions>
+//Description: <concatenate 2 arrays>
+//Parameters: <2 int arrays, and 2 sizes>
 ////////////////////////////////////////////////////////////////////////////////////////////
 void concat(int* arr1, int n1, const int* arr2, int n2)
 {
+    //for loop to concatenate the array elements
     for(int i = 0; i<n2; i++)
     {
         arr1[i] += arr2[i];
     }
 }
+
 /////////////////////////////////////////////////////////////////////////////////////////////
-//Description: <One paragraph describing what the function does>
-//Parameters: <List of parameters and their descriptions>
-//Return: <What is returned by the function, if anything is returned>
-//Notes: <Any notes that a user of the program should know about, e.g. pre/post conditions>
+//Description: <removes indexes start - end out of the array>
+//Parameters: <int array, size, start and end indexes>
 ////////////////////////////////////////////////////////////////////////////////////////////
 void remove(int* &arr, int& n, int StartI, int EndI)
 {
-    int d = EndI-StartI;
+    int d = EndI-StartI;// find the difference
+
+    // check if valid
     if(d>n){
         delete[] arr;
         arr = nullptr;
     }
+    //other case
     else if(StartI<EndI){
-        int* tmpArr = new int[(n-d)];
-        int count = 0;
+        int* tmpArr = new int[(n-d)];// create array 
+        int count = 0;//create a count
+
+        //for loop to create array
         for(int i = 0; i<(n-d); i++){
             if(i<StartI){
                 tmpArr[i] = arr[i];
@@ -155,21 +161,18 @@ void remove(int* &arr, int& n, int StartI, int EndI)
         arr = tmpArr;
     }
 }
+
 /////////////////////////////////////////////////////////////////////////////////////////////
-//Description: <One paragraph describing what the function does>
-//Parameters: <List of parameters and their descriptions>
-//Return: <What is returned by the function, if anything is returned>
-//Notes: <Any notes that a user of the program should know about, e.g. pre/post conditions>
+//Description: <Shuffle a given array>
+//Parameters: <integer array, and the size>
 ////////////////////////////////////////////////////////////////////////////////////////////
 void shuffle(int* arr, int n)
 {
-    random_shuffle(arr, arr+n-1);
+    random_shuffle(arr, arr+n-1);// shuffle the array
 }
+
 /////////////////////////////////////////////////////////////////////////////////////////////
-//Description: <One paragraph describing what the function does>
-//Parameters: <List of parameters and their descriptions>
-//Return: <What is returned by the function, if anything is returned>
-//Notes: <Any notes that a user of the program should know about, e.g. pre/post conditions>
+//Description: <get an start and end of which to cut out of the array>
 ////////////////////////////////////////////////////////////////////////////////////////////
 void sub(int* &arr, int& n, int StartI, int EndI)
 {
@@ -189,11 +192,11 @@ void sub(int* &arr, int& n, int StartI, int EndI)
     delete[] arr;
     arr = tmpArr;
 }
+
 /////////////////////////////////////////////////////////////////////////////////////////////
-//Description: <One paragraph describing what the function does>
-//Parameters: <List of parameters and their descriptions>
-//Return: <What is returned by the function, if anything is returned>
-//Notes: <Any notes that a user of the program should know about, e.g. pre/post conditions>
+//Description: <This function inserts one array into another>
+//Parameters: <array 1, array 2, size1, size2, and itervar which is the iterator variable>
+//Return: <no return>
 ////////////////////////////////////////////////////////////////////////////////////////////
 void insert(int* &arr1, int& size1, int* arr2, int size2, int itervar)
 {
@@ -218,12 +221,12 @@ void insert(int* &arr1, int& size1, int* arr2, int size2, int itervar)
     delete[] arr1;
     arr1 = tmpArr;
 }
-/////////////////////////////////////////////////////////////////////////////////////////////
-//Description: <One paragraph describing what the function does>
-//Parameters: <List of parameters and their descriptions>
-//Return: <What is returned by the function, if anything is returned>
-//Notes: <Any notes that a user of the program should know about, e.g. pre/post conditions>
-//////////////////////////////////////////////////////////////////////////////////////////// 
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////
+//Description: < This function resizes the array to a given size, set all extra elements to 0 >
+//Parameters: <array needing to be changed, size, and the newSize>
+//Return: <no return>
+////////////////////////////////////////////////////////////////////////////////////////////////////////
 void resize(int* &arr, int& n, int newSize)
 {
     int* tmpArr = new int[newSize];
