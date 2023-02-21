@@ -14,31 +14,29 @@ IntArrayList::IntArrayList()
     list = nullptr;
     size = 0;
 }
-IntArrayList::-IntArrayList()
+IntArrayList::~IntArrayList()
 {
     delete[] list;
     list = nullptr;
 }
 void IntArrayList::duplicate(IntArrayList& L2)
 {
-    int s = size;
-    if(s>L2..length()){
-        s = L2.length();
-    }
-    for(int i = 0; i<s; i++){
-        L2[i] = list[i];
+    L2.resize(size);
+    for(int i = 0; i<size; i++){
+        L2.set(list[i], i);
     }
 }
 void IntArrayList::display(bool vert)
 {
     for(int i = 0; i<size; i++){
         if(vert){
-            cout<<list[i]<<"\n";
+            cout<<list[i]<<" "<<"\n";
         }
         else{
-            cout<<list[i];
+            cout<<list[i]<<" ";
         }
     }
+    cout<<endl;
 }
 void IntArrayList::displayAddress()
 {
@@ -80,6 +78,7 @@ bool IntArrayList::sorted()
             checker = false;
         }
     }
+    return checker;
 }
 void IntArrayList::add(int newE)
 {
@@ -88,7 +87,7 @@ void IntArrayList::add(int newE)
     int* tmpArr = new int[size];
 
     for(int i = 0; i<size; i++){
-        if(i<size-2){
+        if(i<size-1){
             tmpArr[i] = list[i];
         }
         else{
@@ -102,19 +101,19 @@ void IntArrayList::add(int newE)
 }
 void IntArrayList::concat(const IntArrayList& L2)
 {
-    if(L2.length()>0){
+    int s2 = L2.length();
+    if(s2>0){
 
         int OGSize = size;
-        size = size + L2.length();
+        size = size + s2;
 
         int* tmpArr = new int[size];
-
         for(int i = 0; i<size; i++){
             if(i<OGSize){
                 tmpArr[i] = list[i];
             }
             else{
-                tmpArr[i] = L2[(i-OGSize-1)];
+                tmpArr[i] = L2.get(i);
             }
         }
 
@@ -124,37 +123,140 @@ void IntArrayList::concat(const IntArrayList& L2)
 }
 void IntArrayList::remove(int StartI, int EndI)
 {
+    if(StartI<0){
+        StartI = 0;
+    }
     int d = EndI - StartI;
+    size = size-d;
+    if(d!=0){
+        if(d>(size-1)){
+            size = 0;
+            delete[] list;
+            list = nullptr;
+        }
+        else if(EndI>(size-1)){
+            EndI = (size-1);
+        }
+        int *tmpList = new int[size];
+        int count = 0;
+        for(int i = 0; i<size; i++){
+            if(i<StartI){
+                tmpList[i] = list[i];
+            }
+            else {
+                tmpList[i] = list[(EndI+count)];
+                count++;
+            }
+        }
+    delete[] list;
+    list = tmpList;
+    }
 }
 void IntArrayList::shuffle()
 {
-
+    random_shuffle(list, list+size);
 }
-void IntArrayList::sub(int, int)
+void IntArrayList::sub(int StartI, int EndI)
 {
-
+    int S = StartI;
+    int* tmpList;
+    if(S<0){
+        S=0;
+    }
+    int d = EndI-S;
+    if(d>=1){
+        tmpList = new int[d];
+        for(int i = 0; i<d; i++){
+            tmpList[i] = list[(S+i)];
+        }
+    }
+    size = d;
+    delete[] list;
+    list = tmpList;
 }
-void IntArrayList::insert(const IntArrayList&, int)
+void IntArrayList::insert(const IntArrayList& otherList, int n)
 {
-
+    if(n<0){
+        n = 0;
+    }
+    int s2 = otherList.length();
+    size = size+s2;
+    int* tmpList = new int[size];
+    
+    int count = 0;
+    for(int i = 0; i<size; i++)
+        if(i<n){
+            tmpList[i] = list[i];
+        }
+        else if(i>=n){
+            tmpList[i] = otherList.get(count);
+            count++;
+        }
+        else{
+            tmpList[i] = list[(i-s2+1)];
+        }
+    delete[] list;
+    list = tmpList;
 }
-void IntArrayList::insert(int, int)
+void IntArrayList::insert(int insertValue, int index)
 {
-
+    if(index<size&&index>0){
+        size = size+1;
+        int *tmpList = new int[size];
+        for(int i = 0; i<size; i++){
+            if(i<index||i>index){
+                tmpList[i] = list[i];
+            }
+            else{
+                tmpList[i] = insertValue;
+            }
+        }
+        delete [] list;
+        list = tmpList;
+    }
 }
-int IntArrayList::get(int)
+int IntArrayList::get(int n) const
 {
-
+    if(n<0){
+        n = 0;
+    }
+    else if(n>size){
+        n = (size-1);
+    }
+    if(size>0){
+        return list[n];
+    }
+    else {
+        return 0;
+    }
+    
 }
-void IntArrayList::set(int, int)
+void IntArrayList::set(int newValue, int index) const
 {
-
+    if(index>=0&&index<size){
+        list[index] = newValue;
+    }
+    else{
+        cout<<"Error: The index is out of range!"<<endl;
+    }
 }
-void IntArrayList::resize(int)
+void IntArrayList::resize(int newSize)
 {
-
+    int oldSize = size;
+    size = newSize;
+    int *tmpList = new int[size];
+    for(int i = 0; i<size; i++){
+        if(i<oldSize){
+            tmpList[i] = list[i];
+        }
+        else{
+            tmpList[i] = 0;
+        }
+    }
+    delete[] list;
+    list = tmpList;
 }
-int IntArrayList::length()
+int IntArrayList::length() const
 {
     return size;
 }
