@@ -6,6 +6,8 @@ Purpose: Implement class functions
 */
 #include "IntArrayList.h"
 
+using namespace std;
+
 /*
 Description:
 */
@@ -78,6 +80,9 @@ bool IntArrayList::sorted()
             checker = false;
         }
     }
+    if(list[0]>list[size]){
+        checker = false;
+    }
     return checker;
 }
 void IntArrayList::add(int newE)
@@ -108,12 +113,14 @@ void IntArrayList::concat(const IntArrayList& L2)
         size = size + s2;
 
         int* tmpArr = new int[size];
+        int count = 0;
         for(int i = 0; i<size; i++){
             if(i<OGSize){
                 tmpArr[i] = list[i];
             }
             else{
-                tmpArr[i] = L2.get(i);
+                tmpArr[i] = L2.get(count);
+                count++;
             }
         }
 
@@ -188,19 +195,19 @@ void IntArrayList::insert(const IntArrayList& otherList, int n)
         if(i<n){
             tmpList[i] = list[i];
         }
-        else if(i>=n){
+        else if(i>=n&&i<(n+s2)){
             tmpList[i] = otherList.get(count);
             count++;
         }
         else{
-            tmpList[i] = list[(i-s2+1)];
+            tmpList[i] = list[(i-n)];
         }
     delete[] list;
     list = tmpList;
 }
 void IntArrayList::insert(int insertValue, int index)
 {
-    if(index<size&&index>0){
+    if(index<size&&index>=0){
         size = size+1;
         int *tmpList = new int[size];
         for(int i = 0; i<size; i++){

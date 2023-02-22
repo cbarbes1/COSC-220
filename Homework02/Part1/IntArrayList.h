@@ -1,10 +1,10 @@
 #ifndef INTARRAYLIST_H
 #define INTARRAYLIST_H
+
 #include <iostream>
 #include <cstdlib>
 #include <algorithm>
 
-using namespace std;
 
 class IntArrayList{
     private:

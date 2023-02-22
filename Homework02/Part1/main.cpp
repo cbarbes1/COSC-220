@@ -1,8 +1,8 @@
 #include <iostream>
 #include "IntArrayList.h"
 
-using namespace std;
 
+using namespace std;
 void div();
 
 int main() {
@@ -56,25 +56,31 @@ int main() {
     L1.display();
     L2.display();
     for (int i = 0; i < 5; i++)
-        L2.set(rand() % 25, i);
+        L2.set(rand()%25, i);
 
     L1.display();
     L2.display();
     L1.concat(L2);
     L1.display();
     L2.display();
+
     div();
+
     L1.display();
     L1.sort();
     L1.display();
     L1.shuffle();
     L1.display();
+
     div();
+
     L1.display();
     L2.display();
     L1.insert(L2, 5);
     L1.display();
+
     div();
+
     L2.display();
     L2.insert(5, 0);
     L2.display();
