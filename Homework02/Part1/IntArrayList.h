@@ -6,10 +6,11 @@ Purpose: Implement class functions
 */
 #ifndef INTARRAYLIST_H
 #define INTARRAYLIST_H
+
 #include <iostream>
 #include <cstdlib>
+#include <algorithm>
 
-using namespace std;
 
 class IntArrayList{
     private:
@@ -17,7 +18,7 @@ class IntArrayList{
         int size;
     public:
         IntArrayList();
-        -IntArrayList();
+        ~IntArrayList();
 
         void duplicate(IntArrayList&);
         void display(bool vert = false);
@@ -32,10 +33,10 @@ class IntArrayList{
         void sub(int, int);
         void insert(const IntArrayList&, int);
         void insert(int, int);
-        int get(int);
-        void set(int, int);
+        int get(int) const;
+        void set(int, int) const;
         void resize(int);
-        int length();
+        int length() const;
 };
 
 #endif
