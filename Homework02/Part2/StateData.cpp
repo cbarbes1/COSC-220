@@ -1,11 +1,3 @@
-<<<<<<< HEAD
-/*
-Created by: Cole Barbes
-Creation Date: 02/17/2023
-Last Updated: 02/17/2023 
-Purpose: Implement class functions
-*/
-=======
 #include "StateData.h"
 
 using namespace std;
@@ -59,4 +51,3 @@ double StateData::get(int index){
         return 0;
     }
 }
->>>>>>> f2c1dae2f3bbed71ac58ec11b0196d041268b0e3

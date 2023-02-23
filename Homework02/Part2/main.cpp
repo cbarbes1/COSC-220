@@ -1,17 +1,3 @@
-<<<<<<< HEAD
-/*
-Created by: Cole Barbes
-Creation Date: 02/17/2023
-Last Updated: 02/17/2023 
-Purpose: Implement class functions
-*/
-#include <iostream>
-
-using namespace std;
-
-int main(){
-
-=======
 #include "StateData.h"
 #include <fstream>
 
@@ -29,7 +15,7 @@ int* initIntArray(string, int);
 int main()
 {
     string fileName = "";
-    ifstream dataFile = NULL;
+    ifstream dataFile;
     bool fileStatus = false;
 
 
@@ -92,7 +78,7 @@ int main()
 
         //for loop to print states
         for(int i = 0; i<lineCount; i++){
-            cout<<(i+1)<<". "<<states[i].state<<endl;
+            cout<<(i+1)<<". "<<states[i].getStateName()<<endl;
         }
 
         //user verification
@@ -121,15 +107,16 @@ int main()
         div();
 
         // print the information the user requested
-        cout<<"The Energy-related carbon dioxide emissions for "<<states[(stateSelect-1)].state<<" in millions of "<<endl;
-        cout<<"metric tons in the year "<<years[yearSelect]<<" was "<<states[(stateSelect-1)].numericData[yearSelect]<<endl;
+        cout<<"The Energy-related carbon dioxide emissions for "<<states[(stateSelect-1)].getStateName()<<" in millions of "<<endl;
+        cout<<"metric tons in the year "<<years[yearSelect]<<" was "<<states[(stateSelect-1)].get(yearSelect)<<endl;
 
         dataFile.close();// close the file
 
         //free up all used memory
         delete[] years;
         years = nullptr;
-        delet[] states
+        delete[] states;
+        states = nullptr;
 
         return 0;
     }
@@ -224,5 +211,4 @@ void div()
     cout<<endl;
     cout<<"---------------------------------------------------------------------------"<<endl;
     cout<<endl;
->>>>>>> f2c1dae2f3bbed71ac58ec11b0196d041268b0e3
 }
