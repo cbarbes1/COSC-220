@@ -15,9 +15,9 @@ int* initIntArray(string, int);
 
 int main()
 {
-    string fileName = "";
-    ifstream dataFile;
-    bool fileStatus = false;
+    string fileName = "";//file name
+    ifstream dataFile;//file 
+    bool fileStatus = false;// boolean variable for whether the file is open or not
 
 
     cout<<"Please Enter the file name: "<<endl;
@@ -39,12 +39,8 @@ int main()
 
         line = line.substr(line.find(',')+1);
 
-        // find the dataCount for the whole file based on the year count
-        for(int i = 0; i<(line.length()); i++){
-            if(line.at(i) == ',') dataCount++;
-        }
-
-        //dataCount = count(line.begin(), line.end(), ',');
+        // dataCount via the comma count using char counter algo
+        dataCount = count(line.begin(), line.end(), ',');
         dataCount+=1;
 
         years = initIntArray(line, dataCount);//get the address of the year array that is created in the function
@@ -68,14 +64,19 @@ int main()
             
             //loop to pull in the data
             for(int j = 0; j<dataCount; j++){
-                word = line.substr(0, line.find(','));// word grabber
+                //if before the end element, get from line
+                if(j<(dataCount-1)){
+                    word = line.substr(0, line.find(','));// word grabber
                 
-                states[i].add(stod(word));// set into the array with stod
+                    states[i].add(stod(word));// set into the array with stod
                 
-                line = line.substr(line.find(',')+1);//get new line
-                if(line.find(',')>=line.length()){
-                    states[i].add(stod(word));
+                    line = line.substr(line.find(',')+1);//get new line
                 }
+                //if reached set the end into the array
+                else{
+                    states[i].add(stod(line));
+                }
+                
             }
         }
 
@@ -171,10 +172,8 @@ int lineCounter(ifstream &dataFile, string name){
     
     //loop through the file
     while(dataFile >> lineHolder){
-        //loop to find the comma count
-        for(int i = 0; i<(lineHolder.length()); i++){
-            if(lineHolder.at(i) == ',') commaCount++;
-        }
+        //find the comma count with comma char counting algorithm
+        commaCount = count(lineHolder.begin(), lineHolder.end(), ',');
         if(commaCount>1)
             lineCount++;
         commaCount = 0;

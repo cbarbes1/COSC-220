@@ -117,9 +117,11 @@ void IntArrayList::add(int newE)
     int* tmpArr = new int[size];
 
     for(int i = 0; i<size; i++){
+        // if i is less than the original size then keep entering
         if(i<size-1){
             tmpArr[i] = list[i];
         }
+        // if not enter the new element
         else{
             tmpArr[i] = newE;
         }
@@ -137,6 +139,7 @@ Parameters: IntArrayList object
 void IntArrayList::concat(const IntArrayList& L2)
 {
     int s2 = L2.length();
+    // if s2 is greater than 0 continue
     if(s2>0){
 
         int OGSize = size;
@@ -145,9 +148,11 @@ void IntArrayList::concat(const IntArrayList& L2)
         int* tmpArr = new int[size];
         int count = 0;
         for(int i = 0; i<size; i++){
+            //if i is less than the og size than set normally
             if(i<OGSize){
                 tmpArr[i] = list[i];
             }
+            //if not then set to the rest of the elements of the other array
             else{
                 tmpArr[i] = L2.get(count);
                 count++;
@@ -164,11 +169,13 @@ void IntArrayList::concat(const IntArrayList& L2)
 */
 void IntArrayList::remove(int StartI, int EndI)
 {
+    //if the start index is less than 0 change it to 0
     if(StartI<0){
         StartI = 0;
     }
     int d = EndI - StartI;
     size = size-d;
+    //if d is anything but 0 then continue
     if(d!=0){
         if(d>(size-1)){
             size = 0;
@@ -181,9 +188,11 @@ void IntArrayList::remove(int StartI, int EndI)
         int *tmpList = new int[size];
         int count = 0;
         for(int i = 0; i<size; i++){
+            //if i is less than the start then set normally
             if(i<StartI){
                 tmpList[i] = list[i];
             }
+            // if not set from the end on
             else {
                 tmpList[i] = list[(EndI+count)];
                 count++;
@@ -255,9 +264,12 @@ void IntArrayList::insert(const IntArrayList& otherList, int n)
 
 /*
 * Description: insert a value at a given index
+* Parameters: the insert value and the index is given 
+* no return only changed to the array
 */
 void IntArrayList::insert(int insertValue, int index)
 {
+    //if in the range of correct indexes then continue
     if(index<size&&index>=0){
         size = size+1;
         int *tmpList = new int[size];
@@ -272,22 +284,35 @@ void IntArrayList::insert(int insertValue, int index)
         delete [] list;
         list = tmpList;
     }
+    // otherwise print error message
+    else{
+        cout<<"Oops, index is invalid."<<endl;
+    }
 }
 
 /*
 * Description: get the value at the given index
+* Parameters: the index of the element
+* return the element or 0  if not applicable
 */
 int IntArrayList::get(int n) const
 {
+    /*
+    Verification conditions
+    Condition 1: n is less than 0 and needs to be changed to 0
+    Condition 2: n is greater than the size of the array then set n to the last element 
+    */
     if(n<0){
         n = 0;
     }
     else if(n>size){
         n = (size-1);
     }
+    //if size is greater than 0 than get the n element
     if(size>0){
         return list[n];
     }
+    // if not then return 0, array does not exist
     else {
         return 0;
     }
@@ -296,12 +321,16 @@ int IntArrayList::get(int n) const
 
 /*
 * Description: set a new value at the given index
+* Parameters: the new value and the index to place it at 
+* no return
 */
 void IntArrayList::set(int newValue, int index) const
 {
+    // if index is valid continue
     if(index>=0&&index<size){
         list[index] = newValue;
     }
+    // if not then print the error message
     else{
         cout<<"Error: The index is out of range!"<<endl;
     }
@@ -309,6 +338,8 @@ void IntArrayList::set(int newValue, int index) const
 
 /*
 * Description: resize the array to the given size filling 0 where applicable
+* Parameters: the new size 
+* no return just edit the array
 */
 void IntArrayList::resize(int newSize)
 {

@@ -40,9 +40,12 @@ string StateData::getStateName(){
 }
 
 /*
-* add an Description:element to the end of the data array
+* add an element to the end of the data array
+* value being placed at the end of the array
+* no return only changed to the array
 */
 void StateData::add(double number){
+    // if size is 0, then create the array
     if(size==0){ 
         size =1;
         double* tmpArr = new double[size];
@@ -51,6 +54,7 @@ void StateData::add(double number){
     
         data = tmpArr;
     }
+    // if size is not 0, then add an element
     else{
         size+=1;
     
@@ -68,12 +72,12 @@ void StateData::add(double number){
     
         data = tmpArr;
     }
-
-    
 }
 
 /*
 * Get an element at the specified index
+* the index of the element 
+* return the element or 0 if not existent
 */
 double StateData::get(int index){
     if(index<size&&index>=0){
