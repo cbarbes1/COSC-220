@@ -61,14 +61,12 @@ int main()
         // for loop to assign each of the pieces of data which includes assigning an address to the numericdata pointer
         for(int i = 0; i<lineCount; i++){
             getline(dataFile, line);
-            cout<<line<<endl;
             string word = line.substr(0, line.find(','));//temporary variable to hold each string value
             line = line.substr(line.find(',')+1);
             state = word;
             states[i].setStateName(state);
+            
             //loop to pull in the data
-            cout<<lineCount<<endl;
-            cout<<dataCount<<endl;
             for(int j = 0; j<dataCount; j++){
                 word = line.substr(0, line.find(','));// word grabber
                 
@@ -109,13 +107,17 @@ int main()
             cout<<endl;
         }
 
-        yearSelect = (dataCount-((years[(dataCount-1)])-yearSelect));//find the correct array index to print
+        for(int i = 0; i<dataCount; i++){
+            if(years[i]==yearSelect){
+                yearSelect = i;
+            }
+        }
 
         div();
 
         // print the information the user requested
         cout<<"The Energy-related carbon dioxide emissions for "<<states[(stateSelect-1)].getStateName()<<" in millions of "<<endl;
-        cout<<"metric tons in the year "<<years[(yearSelect-1)]<<" was "<<states[(stateSelect-1)].get(yearSelect)<<endl;
+        cout<<"metric tons in the year "<<years[yearSelect]<<" was "<<states[(stateSelect-1)].get(yearSelect)<<endl;
 
         dataFile.close();// close the file
 

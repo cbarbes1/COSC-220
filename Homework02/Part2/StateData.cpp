@@ -1,29 +1,47 @@
+/*
+Author: Cole Barbes
+Creation Date: 02/21/23
+Last Update: 02/23/23
+*/
 #include "StateData.h"
 
 using namespace std;
 
+/*
+
+*/
 StateData::StateData(){
     StateName = "";
     size = 0;
     data = nullptr;
 }
 
+/*
+*/
 StateData::~StateData(){
     delete[] data;
     data = nullptr;
 }
 
+/*
+*/
 void StateData::setStateName(string name){
     StateName = name;
 }
+
+/*
+*/
 string StateData::getStateName(){
     return StateName;
 }
+
+/*
+*/
 void StateData::add(double number){
     if(size==0){ 
-        size +=1;
+        size =1;
         double* tmpArr = new double[size];
-        tmpArr[size] = number;
+        tmpArr[(size-1)] = number;
         delete [] data;
     
         data = tmpArr;
@@ -48,6 +66,9 @@ void StateData::add(double number){
 
     
 }
+
+/*
+*/
 double StateData::get(int index){
     if(index<size&&index>=0){
         return data[index];
