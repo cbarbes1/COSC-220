@@ -1,15 +1,14 @@
 /*
-Created by: Cole Barbes
-Creation Date: 02/17/2023
-Last Updated: 02/17/2023 
-Purpose: Implement class functions
+* Creation Date: 02/17/2023
+* Last Updated: 02/17/2023 
+* Purpose: Implement class functions
 */
 #include "IntArrayList.h"
 
 using namespace std;
 
 /*
-Description:
+* Description: This is the default constructor that will be called on declaration
 */
 IntArrayList::IntArrayList()
 {
@@ -17,7 +16,7 @@ IntArrayList::IntArrayList()
     size = 0;
 }
 /*
-Description:
+* Description: This is the destructor to delete used memory
 */
 IntArrayList::~IntArrayList()
 {
@@ -25,7 +24,9 @@ IntArrayList::~IntArrayList()
     list = nullptr;
 }
 /*
-Description:
+* Description: This function duplicates the array
+* Parameters: An IntArrayList object passed by reference
+* no return type
 */
 void IntArrayList::duplicate(IntArrayList& L2)
 {
@@ -35,7 +36,8 @@ void IntArrayList::duplicate(IntArrayList& L2)
     }
 }
 /*
-Description:
+* Description: This function displays the list either horizontal or vertical depending on the polarity 
+* Parameters: A boolean parameter for the polarity
 */
 void IntArrayList::display(bool vert)
 {
@@ -50,7 +52,7 @@ void IntArrayList::display(bool vert)
     cout<<endl;
 }
 /*
-Description:
+* Description: This function displays the address of the list
 */
 void IntArrayList::displayAddress()
 {
@@ -67,6 +69,9 @@ void IntArrayList::swap(int* arr, int n1, int n2) {
     *(arr + n2) = temp;
 }
 
+/*
+* Description: Sort the array 
+*/
 void IntArrayList::sort()
 {
     int i, minIdx;
@@ -85,7 +90,7 @@ void IntArrayList::sort()
 }
 
 /*
-Description:
+Description: check whether the array is sorted or not
 */
 bool IntArrayList::sorted()
 {
@@ -102,7 +107,8 @@ bool IntArrayList::sorted()
 }
 
 /*
-Description:
+Description: add an element to the end of the array
+Parameters: integer element
 */
 void IntArrayList::add(int newE)
 {
@@ -125,7 +131,8 @@ void IntArrayList::add(int newE)
 }
 
 /*
-Description:
+Description: concat the given array to the known array
+Parameters: IntArrayList object 
 */
 void IntArrayList::concat(const IntArrayList& L2)
 {
@@ -152,7 +159,8 @@ void IntArrayList::concat(const IntArrayList& L2)
     }
 }
 /*
-Description:
+* Description: remove the given range from the array
+* Parameters: start index and the end index
 */
 void IntArrayList::remove(int StartI, int EndI)
 {
@@ -186,7 +194,7 @@ void IntArrayList::remove(int StartI, int EndI)
     }
 }
 /*
-Description:
+* Description: shuffle the array using the Algorith library
 */
 void IntArrayList::shuffle()
 {
@@ -194,7 +202,8 @@ void IntArrayList::shuffle()
 }
 
 /*
-Description:
+* Description: Create a sub array from the array and store it inside the array
+* Parameters: Start index and end index
 */
 void IntArrayList::sub(int StartI, int EndI)
 {
@@ -216,7 +225,8 @@ void IntArrayList::sub(int StartI, int EndI)
 }
 
 /*
-Description:
+Description: Insert another list into this one
+* Parameters: IntArrayList object and the index of the start of the 
 */
 void IntArrayList::insert(const IntArrayList& otherList, int n)
 {
@@ -242,6 +252,10 @@ void IntArrayList::insert(const IntArrayList& otherList, int n)
     delete[] list;
     list = tmpList;
 }
+
+/*
+* Description: insert a value at a given index
+*/
 void IntArrayList::insert(int insertValue, int index)
 {
     if(index<size&&index>=0){
@@ -259,6 +273,10 @@ void IntArrayList::insert(int insertValue, int index)
         list = tmpList;
     }
 }
+
+/*
+* Description: get the value at the given index
+*/
 int IntArrayList::get(int n) const
 {
     if(n<0){
@@ -275,6 +293,10 @@ int IntArrayList::get(int n) const
     }
     
 }
+
+/*
+* Description: set a new value at the given index
+*/
 void IntArrayList::set(int newValue, int index) const
 {
     if(index>=0&&index<size){
@@ -284,6 +306,10 @@ void IntArrayList::set(int newValue, int index) const
         cout<<"Error: The index is out of range!"<<endl;
     }
 }
+
+/*
+* Description: resize the array to the given size filling 0 where applicable
+*/
 void IntArrayList::resize(int newSize)
 {
     int oldSize = size;
@@ -300,6 +326,10 @@ void IntArrayList::resize(int newSize)
     delete[] list;
     list = tmpList;
 }
+
+/*
+* Description: return the length of the array
+*/
 int IntArrayList::length() const
 {
     return size;

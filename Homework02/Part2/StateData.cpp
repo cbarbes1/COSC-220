@@ -8,7 +8,7 @@ Last Update: 02/23/23
 using namespace std;
 
 /*
-
+* Default constructor to initialize the object
 */
 StateData::StateData(){
     StateName = "";
@@ -17,6 +17,7 @@ StateData::StateData(){
 }
 
 /*
+* Destructor for the object to delete used memory
 */
 StateData::~StateData(){
     delete[] data;
@@ -24,18 +25,22 @@ StateData::~StateData(){
 }
 
 /*
+* set the state name given a parameter
+* name is the only parameter
 */
 void StateData::setStateName(string name){
     StateName = name;
 }
 
 /*
+* get the state name 
 */
 string StateData::getStateName(){
     return StateName;
 }
 
 /*
+* add an Description:element to the end of the data array
 */
 void StateData::add(double number){
     if(size==0){ 
@@ -68,6 +73,7 @@ void StateData::add(double number){
 }
 
 /*
+* Get an element at the specified index
 */
 double StateData::get(int index){
     if(index<size&&index>=0){
