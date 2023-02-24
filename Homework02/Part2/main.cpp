@@ -1,5 +1,6 @@
 #include "StateData.h"
 #include <fstream>
+#include <algorithm>
 
 using namespace std;
 
@@ -31,7 +32,7 @@ int main()
         int yearSelect = 0; //hold the selected years
         int stateSelect = 0;//hold selected state
         int dataCount = 0;// hold a count of the data in each line
-        string line = "";//hold each line 
+        string line = " ";//hold each line 
         int lineCount = 0;//count of lines
 
         getline(dataFile, line);//bring in the line from the file
@@ -39,14 +40,18 @@ int main()
         line = line.substr(line.find(',')+1);
 
         // find the dataCount for the whole file based on the year count
-        for(int i = 0; i<line.length(); i++){
+        for(int i = 0; i<(line.length()); i++){
             if(line.at(i) == ',') dataCount++;
         }
+
+        //dataCount = count(line.begin(), line.end(), ',');
         dataCount+=1;
-        //
 
         years = initIntArray(line, dataCount);//get the address of the year array that is created in the function
-        
+        for(int i = 0; i<dataCount; i++){
+            cout<<years[i]<<" ";
+        }
+        cout<<endl;
         lineCount = lineCounter(dataFile, fileName);//get the value of the line count
 
         div();
@@ -56,19 +61,21 @@ int main()
         // for loop to assign each of the pieces of data which includes assigning an address to the numericdata pointer
         for(int i = 0; i<lineCount; i++){
             getline(dataFile, line);
+            cout<<line<<endl;
             string word = line.substr(0, line.find(','));//temporary variable to hold each string value
             line = line.substr(line.find(',')+1);
             state = word;
             states[i].setStateName(state);
-
-            string word = "";// hold the word each iteration 
-
             //loop to pull in the data
-            for(int k = 0; k<dataCount; k++){
+            cout<<lineCount<<endl;
+            cout<<dataCount<<endl;
+            for(int j = 0; j<dataCount; j++){
                 word = line.substr(0, line.find(','));// word grabber
+                
                 states[i].add(stod(word));// set into the array with stod
+                
                 line = line.substr(line.find(',')+1);//get new line
-                if(line.find('\n')){
+                if(line.find(',')>=line.length()){
                     states[i].add(stod(word));
                 }
             }
@@ -102,13 +109,13 @@ int main()
             cout<<endl;
         }
 
-        yearSelect = (dataCount-((years[(dataCount-1)])-yearSelect)-1);//find the correct array index to print
+        yearSelect = (dataCount-((years[(dataCount-1)])-yearSelect));//find the correct array index to print
 
         div();
 
         // print the information the user requested
         cout<<"The Energy-related carbon dioxide emissions for "<<states[(stateSelect-1)].getStateName()<<" in millions of "<<endl;
-        cout<<"metric tons in the year "<<years[yearSelect]<<" was "<<states[(stateSelect-1)].get(yearSelect)<<endl;
+        cout<<"metric tons in the year "<<years[(yearSelect-1)]<<" was "<<states[(stateSelect-1)].get(yearSelect)<<endl;
 
         dataFile.close();// close the file
 
@@ -163,7 +170,7 @@ int lineCounter(ifstream &dataFile, string name){
     //loop through the file
     while(dataFile >> lineHolder){
         //loop to find the comma count
-        for(int i = 0; i<lineHolder.length(); i++){
+        for(int i = 0; i<(lineHolder.length()); i++){
             if(lineHolder.at(i) == ',') commaCount++;
         }
         if(commaCount>1)
