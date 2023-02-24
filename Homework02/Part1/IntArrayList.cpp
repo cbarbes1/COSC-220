@@ -16,11 +16,17 @@ IntArrayList::IntArrayList()
     list = nullptr;
     size = 0;
 }
+/*
+Description:
+*/
 IntArrayList::~IntArrayList()
 {
     delete[] list;
     list = nullptr;
 }
+/*
+Description:
+*/
 void IntArrayList::duplicate(IntArrayList& L2)
 {
     L2.resize(size);
@@ -28,6 +34,9 @@ void IntArrayList::duplicate(IntArrayList& L2)
         L2.set(list[i], i);
     }
 }
+/*
+Description:
+*/
 void IntArrayList::display(bool vert)
 {
     for(int i = 0; i<size; i++){
@@ -40,6 +49,9 @@ void IntArrayList::display(bool vert)
     }
     cout<<endl;
 }
+/*
+Description:
+*/
 void IntArrayList::displayAddress()
 {
     cout<<list<<endl;
@@ -72,6 +84,9 @@ void IntArrayList::sort()
     }
 }
 
+/*
+Description:
+*/
 bool IntArrayList::sorted()
 {
     bool checker = true;
@@ -85,6 +100,10 @@ bool IntArrayList::sorted()
     }
     return checker;
 }
+
+/*
+Description:
+*/
 void IntArrayList::add(int newE)
 {
     size +=1;
@@ -104,6 +123,10 @@ void IntArrayList::add(int newE)
     
     list = tmpArr;
 }
+
+/*
+Description:
+*/
 void IntArrayList::concat(const IntArrayList& L2)
 {
     int s2 = L2.length();
@@ -128,6 +151,9 @@ void IntArrayList::concat(const IntArrayList& L2)
         list = tmpArr;
     }
 }
+/*
+Description:
+*/
 void IntArrayList::remove(int StartI, int EndI)
 {
     if(StartI<0){
@@ -159,10 +185,17 @@ void IntArrayList::remove(int StartI, int EndI)
     list = tmpList;
     }
 }
+/*
+Description:
+*/
 void IntArrayList::shuffle()
 {
     random_shuffle(list, list+size);
 }
+
+/*
+Description:
+*/
 void IntArrayList::sub(int StartI, int EndI)
 {
     int S = StartI;
@@ -181,6 +214,10 @@ void IntArrayList::sub(int StartI, int EndI)
     delete[] list;
     list = tmpList;
 }
+
+/*
+Description:
+*/
 void IntArrayList::insert(const IntArrayList& otherList, int n)
 {
     if(n<0){
