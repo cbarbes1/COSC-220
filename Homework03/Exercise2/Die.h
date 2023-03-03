@@ -24,6 +24,5 @@ class Die {
     void roll();     // Rolls the die
     int getSides() const;  // Returns the number of sides
     int getValue() const;  // Returns the die's value
-    
 };
 #endif
