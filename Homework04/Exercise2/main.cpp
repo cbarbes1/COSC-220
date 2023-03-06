@@ -116,7 +116,7 @@ int main()
 
     E.display(7);
     cout << endl;
-
+    
     B = D * E;
     B.display(7);
     cout << endl;

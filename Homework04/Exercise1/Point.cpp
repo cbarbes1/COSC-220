@@ -1,3 +1,5 @@
+/*
+*/
 #include "Point.h"
 #include <cmath>
 #include <cstdlib>
