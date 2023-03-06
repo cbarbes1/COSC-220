@@ -10,9 +10,7 @@ Description: simple class to create a 2d array in a safer manner
 #include <cmath>
 #include <iomanip>
 
-class Matrix;
-
-ostream& operator<<(ostream &, const Matrix&);
+using namespace std;
 
 class Matrix{
     private:

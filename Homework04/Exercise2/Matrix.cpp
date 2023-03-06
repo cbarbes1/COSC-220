@@ -4,6 +4,7 @@
 * Last Update: 03/05/23
 */
 #include "Matrix.h"// include header file
+#include <string>
 
 
 using namespace std;
@@ -84,7 +85,9 @@ Matrix Matrix::operator=(const Matrix& right)
             A[i][j] = right.A[i][j];
         }
     }
+    return *this;
 }
+
 /*
 * Description: Delete used memory to avoid memory leak
 */
@@ -220,27 +223,17 @@ void Matrix::resize(int r, int c, double defval)
 
 Matrix Matrix::transpose()
 {
-    double** temp = new double*[cols];
+    Matrix temp(cols, rows);
     for(int i = 0; i<cols; i++)
     {
-        temp[i] = new double[rows];
         for(int j = 0; j<rows; j++)
         {
             temp[i][j] = A[j][i];
         }
     }
 
-    for(int i = 0; i<rows; i++)
-    {
-        delete[] A[i];
-    }
-    delete[] A;
-    A = nullptr;
-    int hold = rows;
-    rows = cols;
-    cols = hold;
-
-    A = temp;
+    return temp;
+    
 }
         
 
@@ -252,7 +245,7 @@ Matrix Matrix::operator+(const Matrix& other)
         {
             for(int j = 0; j<cols; j++)
             {
-                temp[i][j] = A[i][j] + other.A[i][j];
+                temp.A[i][j] = A[i][j] + other.A[i][j];
             }
         }
         return temp;
@@ -271,7 +264,7 @@ Matrix Matrix::operator-(const Matrix& other)
         {
             for(int j = 0; j<cols; j++)
             {
-                temp[i][j] = A[i][j] - other.A[i][j];
+                temp.A[i][j] = A[i][j] - other.A[i][j];
             }
         }
         return temp;
@@ -308,41 +301,54 @@ Matrix Matrix::operator*(double right)
 }
 Matrix Matrix::operator*(const Matrix& right)
 {
-    if(cols==right.cols&&rows==right.rows){
-        Matrix temp(rows, cols);
+    if(cols==right.rows){
+        int sum = 0;
+        Matrix temp(rows, right.cols, 0);
         for(int i = 0; i<rows; i++)
         {
-            for(int j = 0; j<cols; j++)
+            for(int j = 0; j<right.cols; j++)
             {
-                temp.A[i][j] = (A[i][j])*(right.A[i][j]);
+                sum = 0;
+                for(int k = 0; k<cols; k++)
+                {
+                    sum += (A[i][k])*(right.A[k][j]);
+                }
+                temp[i][j] = sum;
             }
         }
         return temp;
     }
     else{
         Matrix temp(1, 1, 0);
-        cout<<"Subtraction of unequivalent sized matrices is strictly prohibited in this library!"<<endl;
+        cout<<"Multiplication of unequivalent sized matrices is strictly prohibited in this library!"<<endl;
         return temp;
     }
 }
 
 ostream& operator<<(ostream &strm, const Matrix& val)
 {
-    strm<<"[[";
+    strm<<"[";
     for(int i = 0; i<val.rows; i++)
     {
+        strm<<"[";
         for(int j = 0; j<val.cols; j++)
         {
-            strm<<val.A[i][j];
+            if(j<(val.cols-1)){
+                strm<<val.A[i][j]<<" ";
+            }
+            else{
+                strm<<val.A[i][j];
+            }
         }
         strm<<"]";
     }
+    strm<<"]";
     return strm;
 }
 
 double* Matrix::operator[](int n)
 {
-    if(n>=rows){
+    if(n<rows){
         return A[n];
     }
     else{
