@@ -211,19 +211,18 @@ void Matrix::resize(int r, int c, double defval)
     delete[] A; // delete the outer memory
     A = temp;// set the array memory locations
 
-    // set the inner memory addresses
-    for(int i = 0; i<r; i++){
-        A[i] = temp[i];
-    }
-
     // set the size
     rows = r;
     cols = c;
 }
 
+/*
+* transpose the matrix 
+*/
 Matrix Matrix::transpose()
 {
-    Matrix temp(cols, rows);
+    Matrix temp(cols, rows); // create the temporary matrix
+    // loop to set the new matrix
     for(int i = 0; i<cols; i++)
     {
         for(int j = 0; j<rows; j++)
@@ -236,35 +235,48 @@ Matrix Matrix::transpose()
     
 }
         
-
+/*
+* Description: overload the + sign to add two matrices
+* Parameters: the other matrix
+* return: the value  of the matrix after
+*/
 Matrix Matrix::operator+(const Matrix& other)
 {
+    // if the array is the same size execute
     if(rows == other.rows&&cols==other.cols){
         Matrix temp(rows, cols);
         for(int i = 0; i<rows; i++)
         {
             for(int j = 0; j<cols; j++)
             {
-                temp.A[i][j] = A[i][j] + other.A[i][j];
+                temp.A[i][j] = A[i][j] + other.A[i][j]; // add each respective element
             }
         }
         return temp;
     }
+    // if not return a 1x1 matrix of 0's
     else{
         Matrix temp(1, 1, 0);
         cout<<"Addition of unequivalent sized matrices is strictly prohibited in this library!"<<endl;
         return temp;
     }
 }
+
+/*
+* Description: overload the - sign to subtract two matrices
+* Parameters: the other matrix
+* return: the value after
+*/
 Matrix Matrix::operator-(const Matrix& other)
 {
+    // if the matrices are the same execute
     if(rows == other.rows&&cols==other.cols){
         Matrix temp(rows, cols);
         for(int i = 0; i<rows; i++)
         {
             for(int j = 0; j<cols; j++)
             {
-                temp.A[i][j] = A[i][j] - other.A[i][j];
+                temp.A[i][j] = A[i][j] - other.A[i][j]; // subtract each respective element 
             }
         }
         return temp;
@@ -275,6 +287,12 @@ Matrix Matrix::operator-(const Matrix& other)
         return temp;
     }
 }
+
+/*
+* Description: overload the * sign to multiply a matrix by a number on the left
+* Parameters: the other matrix
+* return: return the value of the matrix after
+*/
 Matrix operator*(double left, const Matrix& right)
 {
     Matrix temp(right.rows, right.cols);
@@ -282,11 +300,17 @@ Matrix operator*(double left, const Matrix& right)
     {
         for(int j = 0; j<right.cols; j++)
         {
-            temp.A[i][j] = right.A[i][j]*left;
+            temp.A[i][j] = right.A[i][j]*left; // multiply each elem by the number
         }
     }
     return temp;
 }
+
+/*
+* Description: overload the * sign to multiply a matrix by a number 
+* Parameters:  the value of the matrix
+* return: the matix after
+*/
 Matrix Matrix::operator*(double right)
 {
     Matrix temp(rows, cols);
@@ -294,16 +318,23 @@ Matrix Matrix::operator*(double right)
     {
         for(int j = 0; j<cols; j++)
         {
-            temp.A[i][j] = A[i][j]*right;
+            temp.A[i][j] = A[i][j]*right; // multiply each element by the number
         }
     }
     return temp;
 }
+
+/*
+* Description: overload the * sign so that the matrix class can be multipliesd by another
+* Parameters: the right matrix
+* return: the value after multiplication
+*/
 Matrix Matrix::operator*(const Matrix& right)
 {
+    // if the columns matches the rows the multiplication is valid 
     if(cols==right.rows){
         int sum = 0;
-        Matrix temp(rows, right.cols, 0);
+        Matrix temp(rows, right.cols, 0); //  init temp matrix
         for(int i = 0; i<rows; i++)
         {
             for(int j = 0; j<right.cols; j++)
@@ -311,13 +342,14 @@ Matrix Matrix::operator*(const Matrix& right)
                 sum = 0;
                 for(int k = 0; k<cols; k++)
                 {
-                    sum += (A[i][k])*(right.A[k][j]);
+                    sum += (A[i][k])*(right.A[k][j]);// multiply each value adding it into the sum 
                 }
-                temp[i][j] = sum;
+                temp[i][j] = sum; // set into the new array
             }
         }
         return temp;
     }
+    // if not return 1x1 of 0's
     else{
         Matrix temp(1, 1, 0);
         cout<<"Multiplication of unequivalent sized matrices is strictly prohibited in this library!"<<endl;
@@ -325,12 +357,19 @@ Matrix Matrix::operator*(const Matrix& right)
     }
 }
 
+/*
+* Description: overload the print stream so that the matrix class can be printed
+* Parameters: the stream and the matrix
+* return: the stream
+*/
 ostream& operator<<(ostream &strm, const Matrix& val)
 {
-    strm<<"[";
+    strm<<"["; 
+    // loop through the outer array 
     for(int i = 0; i<val.rows; i++)
     {
         strm<<"[";
+        // loop through the inner array
         for(int j = 0; j<val.cols; j++)
         {
             if(j<(val.cols-1)){
@@ -343,11 +382,15 @@ ostream& operator<<(ostream &strm, const Matrix& val)
         strm<<"]";
     }
     strm<<"]";
-    return strm;
+    return strm; // return stream
 }
 
+/*
+* Description: overload the [] operator to return an address at a specifies index
+*/
 double* Matrix::operator[](int n)
 {
+    // if n is less than size then get the element
     if(n<rows){
         return A[n];
     }

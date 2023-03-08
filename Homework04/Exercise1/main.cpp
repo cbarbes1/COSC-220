@@ -29,7 +29,7 @@ int main()
     p4 = p2;
 
     if (p2 == p4) {
-        cout << "Points are equals." << endl;
+        cout << "Points are equal." << endl;
     }
     else{
         cout<<"Points are different."<<endl;
