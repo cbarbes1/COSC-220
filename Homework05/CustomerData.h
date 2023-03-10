@@ -7,7 +7,7 @@
 using namespace std;
 
 class CustomerData : public PersonData{
-    private:
+    protected:
         int customerNumber;
         bool mailingList;
     public:
