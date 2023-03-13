@@ -14,6 +14,9 @@ class Date{
         Date();//default constructor
         Date(int, int, int); //constructor
         void setDate(int, int, int);// set the date after declaration
+        int getMonth();
+        int getDay();
+        int getYear();
         bool operator==(const Date&); // overload == 
         bool operator!=(const Date&); // overload !=
         bool operator<(const Date&);// overload <

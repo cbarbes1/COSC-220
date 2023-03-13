@@ -18,6 +18,18 @@ void Date::setDate(int m, int d, int y)
     day = d;
     year = y;
 }
+int Date::getMonth()
+{
+    return month;
+}
+int Date::getDay()
+{
+    return day;
+}
+int Date::getYear()
+{
+    return year;
+}
 bool Date::operator==(const Date& right)
 {
     return ((month == right.month) && (day == right.day) && (year == right.year));

@@ -14,6 +14,8 @@ class StockList{
         StockList();
         StockList(int);
         StockList(const StockList&);
+        ~StockList();
+        StockList operator=(const StockList&);
         // accessors and mutators
         void setElement(int, const StockDay&);
         StockDay getElement(int);
