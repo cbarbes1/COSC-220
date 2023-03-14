@@ -54,6 +54,12 @@ bool Date::operator>=(const Date& right)
 {
     return (year >= right.year || (month >= right.month && day >= right.day));
 }
+Date operator=(const Date &right)
+{
+    month = right.month;
+    day = right.day;
+    year = right.year;
+}
 ostream& operator<<(ostream & strm, const Date& obj)
 {
     strm<<obj.month<<"/"<<obj.day<<"/"<<obj.year;

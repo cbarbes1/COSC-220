@@ -34,7 +34,7 @@ int main()
 
         averageopen += (stockData.getElement(i)).getOpen();
         averageclose += (stockData.getElement(i)).getClose();
-        averagehigh += (stockData.getElement(i)).getAdjClose();
+        averagehigh += (stockData.getElement(i)).getHigh();
         averagelow += (stockData.getElement(i)).getLow();
         averagevolume += (stockData.getElement(i)).getVolume();
 
@@ -49,19 +49,19 @@ int main()
     averagelow = averagelow/numStocks;
     averagevolume = averagevolume/numStocks;
 
-    for(int i = 0; i<numStocks; i++){
-        if(stockData.getElement(i).getClose()<stockData.getElement(i+1).getClose()){
+    for(int i = 1; i<(numStocks-1); i++){
+        if(stockData.getElement(i).getClose()>stockData.getElement(i-1).getClose()){
             countUp++;
         }
-        else if(stockData.getElement(i).getClose()>stockData.getElement(i+1).getClose()){
+        else if(stockData.getElement(i).getClose()<stockData.getElement(i-1).getClose()){
             countDown++;
         }
-        else if(stockData.getElement(i).getClose()==stockData.getElement(i+1).getClose()){
+        else if(stockData.getElement(i).getClose()==stockData.getElement(i-1).getClose()){
             neutral++;
         }
     }
 
-    cout<<setprecision(10);
+    cout<<setprecision(8);
     cout<<"Number of Days: "<<stockData.getSize()<<endl;
     cout<<"Date Range: "<<stockData.getElement(0).getDate()<<" to "<<(stockData.getElement(stockData.getSize()-1)).getDate()<<endl;
     cout<<"Up Days: "<<countUp<<endl;
@@ -71,17 +71,17 @@ int main()
     cout<<"Average Closing Value: "<<averageclose<<endl;
     cout<<"Average High Value: "<<averagehigh<<endl;
     cout<<"Average Low Value: "<<averagelow<<endl;
-    cout<<"Average Volume: "<<averagevolume<<endl;
+    cout<<setprecision(16)<<"Average Volume: "<<averagevolume<<endl;
 
     cout<<endl;
 
-    cout<<"Stock Per Day Investment Scheme"<<endl;
+    cout<<setprecision(14)<<"Stock Per Day Investment Scheme"<<endl;
 
     div();
 
     cout<<"Stock Per Day Cost: "<<sum<<endl;
     cout<<"Stock Per Day Shares: "<<stockData.getSize()<<endl;
-    cout<<"Stock Per Day Worth: "<<numStocks*stockData.getElement((numStocks-1)).getClose()<<endl;
+    cout<<"Stock Per Day Worth: "<<numStocks*(stockData.getElement((numStocks-1)).getClose())<<endl;
 
     cout<<"Buy/Sell Investment Scheme"<<endl;
 
@@ -113,13 +113,13 @@ void loadDataFile(string name, StockList &arr)
         int volume;
         tempArr[0] = stod(line.substr(0, line.find(',')));
         line = line.substr(line.find(',')+1);
-        tempArr[1] = stod(line.substr(0, line.find(',')));
-        line = line.substr(line.find(',')+1);
-        tempArr[2] = stod(line.substr(0, line.find(',')));
-        line = line.substr(line.find(',')+1);
         tempArr[3] = stod(line.substr(0, line.find(',')));
         line = line.substr(line.find(',')+1);
         tempArr[4] = stod(line.substr(0, line.find(',')));
+        line = line.substr(line.find(',')+1);
+        tempArr[1] = stod(line.substr(0, line.find(',')));
+        line = line.substr(line.find(',')+1);
+        tempArr[2] = stod(line.substr(0, line.find(',')));
         line = line.substr(line.find(',')+1);
         volume = stod(line);
         StockDay temp(tempDate, tempArr, volume);
