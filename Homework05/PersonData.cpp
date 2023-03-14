@@ -6,6 +6,7 @@ PersonData::PersonData()
     lastName = "";
     address = "";
     state = "";
+    city = "";
     zip = "";
     phone = "";
 }

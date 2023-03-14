@@ -16,7 +16,7 @@ class PersonData{
         string getName();
         string getAddress();
         string getPhone();
-        string getRecord();
-        void PrintRecord();
+        virtual string getRecord();
+        virtual void PrintRecord();
 };
 #endif
