@@ -157,27 +157,29 @@ void loadDataFile(string name1, string name2, StockList &arr1, StockList &arr2)
     inFile01.open(name1);
     int fileSize2 = count(inFile02);
     inFile02.open(name2);
-
-    
-
+    int year1 = 0;
+    int year2 = 0;
+    int month1 = 0;
+    int month2 = 0;
+    int day1 = 0;
+    int day2 = 0;
+    double tempArr1[6];
+    double tempArr2[6];
     getline(inFile01, line1);
     getline(inFile02, line2);
     
     for(int i = 0; i<fileSize1; i++){
         getline(inFile01, line1);
         
-        int year1 = stoi(line1.substr(0, line1.find("-")));
+        year1 = stoi(line1.substr(0, line1.find("-")));
         line1 = line1.substr(line1.find('-')+1);
-        int month1 = stoi(line1.substr(0, line1.find('-')));
+        month1 = stoi(line1.substr(0, line1.find('-')));
         line1 = line1.substr(line1.find('-')+1);
-        int day1 = stoi(line1.substr(0, line1.find(',')));
+        day1 = stoi(line1.substr(0, line1.find(',')));
         line1 = line1.substr(line1.find(',')+1);
         
         Date tempDate1(month1, day1, year1);
         
-        
-        float tempArr1[5];
-        int volume1;
         tempArr1[0] = stod(line1.substr(0, line1.find(',')));
         line1 = line1.substr(line1.find(',')+1);
         tempArr1[3] = stod(line1.substr(0, line1.find(',')));
@@ -188,23 +190,23 @@ void loadDataFile(string name1, string name2, StockList &arr1, StockList &arr2)
         line1 = line1.substr(line1.find(',')+1);
         tempArr1[2] = stod(line1.substr(0, line1.find(',')));
         line1 = line1.substr(line1.find(',')+1);
-        volume1 = stod(line1);
-        StockDay temp1(tempDate1, tempArr1, volume1);
+        tempArr1[5] = stod(line1);
+        StockDay temp1(tempDate1, tempArr1);
             
             
         temparr1.append(temp1);
     }
     for(int i = 0; i<fileSize2; i++){
         getline(inFile02, line2);
-        int year2 = stoi(line2.substr(0, line2.find("-")));
+        year2 = stoi(line2.substr(0, line2.find("-")));
         line2 = line2.substr(line2.find('-')+1);
-        int month2 = stoi(line2.substr(0, line2.find('-')));
+        month2 = stoi(line2.substr(0, line2.find('-')));
         line2 = line2.substr(line2.find('-')+1);
-        int day2 = stoi(line2.substr(0, line2.find(',')));
+        day2 = stoi(line2.substr(0, line2.find(',')));
         line2 = line2.substr(line2.find(',')+1);
         Date tempDate2(month2, day2, year2);
-        float tempArr2[5];
-        int volume2;
+        
+        
         tempArr2[0] = stod(line2.substr(0, line2.find(',')));
         line2 = line2.substr(line2.find(',')+1);
         tempArr2[3] = stod(line2.substr(0, line2.find(',')));
@@ -215,8 +217,8 @@ void loadDataFile(string name1, string name2, StockList &arr1, StockList &arr2)
         line2 = line2.substr(line2.find(',')+1);
         tempArr2[2] = stod(line2.substr(0, line2.find(',')));
         line2 = line2.substr(line2.find(',')+1);
-        volume2 = stod(line2);
-        StockDay temp2(tempDate2, tempArr2, volume2);
+        tempArr2[5] = stod(line2);
+        StockDay temp2(tempDate2, tempArr2);
             
         temparr2.append(temp2);
         
@@ -272,13 +274,13 @@ void simulate(double& Stock1, double& Stock2, double percentMove, double numStoc
     cout<<stockData01.getElement(0).getClose();
     if(sim == 0){
         for(int i = 1; i<(numStocks-1); i++){ 
-            if(stockData01.getElement(i).getOpen()>stockData01.getElement(i-1).getClose()&&stockData02.getElement(i).getClose()<stockData02.getElement(i-1).getClose()){
+            if(stockData01.getElement(i).getClose()>stockData01.getElement(i-1).getOpen()&&stockData02.getElement(i).getClose()<stockData02.getElement(i-1).getOpen()){
                 moneyHolder = (percentMove*(Stocks1));
                 Stocks1 = (Stocks1 - moneyHolder);
                 moneyHolder = moneyHolder*stockData01.getElement(i).getClose();
                 Stocks2 = Stocks2 + (moneyHolder/stockData02.getElement(i).getClose());
             }
-            else if(stockData02.getElement(i).getOpen()>stockData02.getElement(i-1).getClose()&&stockData01.getElement(i).getClose()>stockData01.getElement(i-1).getClose()){
+            else if(stockData02.getElement(i).getClose()>stockData02.getElement(i-1).getOpen()&&stockData01.getElement(i).getClose()>stockData01.getElement(i-1).getOpen()){
                 moneyHolder = (percentMove*Stocks2);
                 Stocks2 = Stocks2 - moneyHolder;
                 moneyHolder = moneyHolder*stockData02.getElement(i).getClose();
@@ -289,14 +291,14 @@ void simulate(double& Stock1, double& Stock2, double percentMove, double numStoc
     }
     else if(sim==5){
         for(int i = 5; i<numStocks; i+=5){
-            if(stockData01.getElement(i).getClose()>stockData01.getElement(i-5).getClose()&&stockData02.getElement(i).getClose()<stockData02.getElement(i-1).getClose()){
+            if(stockData01.getElement(i).getClose()>stockData01.getElement(i-5).getOpen()&&stockData02.getElement(i).getClose()<stockData02.getElement(i-1).getOpen()){
                 double moneyHolder = (percentMove*Stocks1);
                 Stocks1 = Stocks1 - moneyHolder;
                 moneyHolder = moneyHolder*stockData01.getElement(i).getClose();
                 
                 Stocks2 = Stocks2 + (moneyHolder/stockData02.getElement(i).getClose());
             }
-            else if(stockData02.getElement(i).getClose()>stockData02.getElement(i-5).getClose()&&stockData01.getElement(i).getClose()>stockData01.getElement(i-1).getClose()){
+            else if(stockData02.getElement(i).getClose()>stockData02.getElement(i-5).getOpen()&&stockData01.getElement(i).getClose()>stockData01.getElement(i-1).getOpen()){
                 double moneyHolder = (percentMove*Stocks2);
                 Stocks2 = Stocks2 - moneyHolder;
                 moneyHolder = moneyHolder*stockData02.getElement(i).getClose();
@@ -307,14 +309,14 @@ void simulate(double& Stock1, double& Stock2, double percentMove, double numStoc
     }
     else if(sim==10){
         for(int i = 10; i<numStocks; i+=10){
-            if(stockData01.getElement(i).getClose()>stockData01.getElement(i-10).getClose()&&stockData02.getElement(i).getClose()<stockData02.getElement(i-1).getClose()){
+            if(stockData01.getElement(i).getClose()>stockData01.getElement(i-10).getOpen()&&stockData02.getElement(i).getOpen()<stockData02.getElement(i-1).getOpen()){
                 double moneyHolder = (percentMove*Stocks1);
                 Stocks1 = Stocks1 - moneyHolder;
                 moneyHolder = moneyHolder*stockData01.getElement(i).getClose();
                 
                 Stocks2 = Stocks2 + (moneyHolder*stockData02.getElement(i).getClose());
             }
-            else if(stockData02.getElement(i).getClose()>stockData02.getElement(i-10).getClose()&&stockData01.getElement(i).getClose()>stockData01.getElement(i-1).getClose()){
+            else if(stockData02.getElement(i).getClose()>stockData02.getElement(i-10).getOpen()&&stockData01.getElement(i).getClose()>stockData01.getElement(i-1).getOpen()){
                 double moneyHolder = (percentMove*Stocks2);
                 Stocks2 = Stocks2 - moneyHolder;
                 moneyHolder = moneyHolder*stockData02.getElement(i).getClose();
@@ -325,14 +327,14 @@ void simulate(double& Stock1, double& Stock2, double percentMove, double numStoc
     }
     else if(sim==30){
         for(int i = 30; i<numStocks; i+=30){
-            if(stockData01.getElement(i).getClose()>stockData01.getElement(i-30).getClose()&&stockData02.getElement(i).getClose()<stockData02.getElement(i-1).getClose()){
+            if(stockData01.getElement(i).getClose()>stockData01.getElement(i-30).getOpen()&&stockData02.getElement(i).getClose()<stockData02.getElement(i-1).getOpen()){
                 double moneyHolder = (percentMove*Stocks1);
                 Stocks1 = Stocks1 - moneyHolder;
                 moneyHolder = moneyHolder*stockData01.getElement(i).getClose();
                 
                 Stocks2 = Stocks2 + (moneyHolder*stockData02.getElement(i).getClose());
             }
-            else if(stockData02.getElement(i).getClose()>stockData02.getElement(i-30).getClose()&&stockData01.getElement(i).getClose()>stockData01.getElement(i-1).getClose()){
+            else if(stockData02.getElement(i).getClose()>stockData02.getElement(i-30).getOpen()&&stockData01.getElement(i).getClose()>stockData01.getElement(i-1).getOpen()){
                 double moneyHolder = (percentMove*Stocks2);
                 Stocks2 = Stocks2 - moneyHolder;
                 moneyHolder = moneyHolder*stockData02.getElement(i).getClose();

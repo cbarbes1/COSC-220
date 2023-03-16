@@ -3,7 +3,7 @@
 #include "StockDay.h"
 #include <iomanip>
 
-enum TYPE{OPEN = 0, CLOSE = 1, ADJCLOSE = 2, HIGH = 3, LOW = 4};
+enum TYPE{OPEN = 0, CLOSE = 1, ADJCLOSE = 2, HIGH = 3, LOW = 4, VOLUME = 5};
 
 StockDay::StockDay()
 {
@@ -12,51 +12,48 @@ StockDay::StockDay()
     {
         data[i] = 0;
     }
-    volume = 0;
 }
-StockDay::StockDay(Date& newDate, float arr[], int v)
+StockDay::StockDay(Date& newDate, double arr[])
 {
     date.setDate(newDate.getMonth(), newDate.getDay(), newDate.getYear());
     for(int i = 0; i<SIZE; i++){
         data[i] = arr[i];
     }
-    volume = v;
 }
-void StockDay::setStockDay(Date& newDate, float arr[], int v)
+void StockDay::setStockDay(Date& newDate, double arr[])
 {
     date.setDate(newDate.getMonth(), newDate.getDay(), newDate.getYear());
     for(int i = 0; i<SIZE; i++){
         data[i] = arr[i];
     }
-    volume = v;
 }
 Date& StockDay::getDate()
 {
     return date;
 }
-float StockDay::getOpen()
+double StockDay::getOpen()
 {
     return data[OPEN];
 }
-float StockDay::getClose()
+double StockDay::getClose()
 {
     return data[CLOSE];
 }
-float StockDay::getAdjClose()
+double StockDay::getAdjClose()
 {
     return data[ADJCLOSE];
 }
-float StockDay::getHigh()
+double StockDay::getHigh()
 {
     return data[HIGH];
 }
-float StockDay::getLow()
+double StockDay::getLow()
 {
     return data[LOW];
 }
-int StockDay::getVolume()
+double StockDay::getVolume()
 {
-    return volume;
+    return data[VOLUME];
 }
 StockDay StockDay::operator=(const StockDay& right)
 {
@@ -64,7 +61,6 @@ StockDay StockDay::operator=(const StockDay& right)
     for(int i = 0; i<SIZE; i++){
         data[i] = right.data[i];
     }
-    volume = right.volume;
     return *(this);
 }
 ostream& operator<<(ostream &strm, const StockDay &stock)
@@ -75,6 +71,6 @@ ostream& operator<<(ostream &strm, const StockDay &stock)
     strm<<setw(12)<<"Adj. Close: "<<stock.data[ADJCLOSE]<<endl;
     strm<<setw(12)<<"High: "<<stock.data[HIGH]<<endl;
     strm<<setw(12)<<"Low: "<<stock.data[LOW]<<endl;
-    strm<<setw(12)<<"Volume: "<<stock.volume<<endl;
+    strm<<setw(12)<<"Volume: "<<stock.data[VOLUME]<<endl;
     return strm;
 }
