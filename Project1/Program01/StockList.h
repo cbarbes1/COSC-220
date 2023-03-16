@@ -1,3 +1,5 @@
+/*
+*/
 #ifndef STOCKLIST_H
 #define STOCKLIST_H
 

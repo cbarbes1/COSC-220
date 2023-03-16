@@ -1,3 +1,5 @@
+/*
+*/
 #include "StockDay.h"
 #include <iomanip>
 
@@ -12,7 +14,7 @@ StockDay::StockDay()
     }
     volume = 0;
 }
-StockDay::StockDay(Date& newDate, float arr[], int v)
+StockDay::StockDay(Date& newDate, double arr[], int v)
 {
     date.setDate(newDate.getMonth(), newDate.getDay(), newDate.getYear());
     for(int i = 0; i<SIZE; i++){
@@ -20,7 +22,7 @@ StockDay::StockDay(Date& newDate, float arr[], int v)
     }
     volume = v;
 }
-void StockDay::setStockDay(Date& newDate, float arr[], int v)
+void StockDay::setStockDay(Date& newDate, double arr[], int v)
 {
     date.setDate(newDate.getMonth(), newDate.getDay(), newDate.getYear());
     for(int i = 0; i<SIZE; i++){
@@ -32,23 +34,23 @@ Date& StockDay::getDate()
 {
     return date;
 }
-float StockDay::getOpen()
+double StockDay::getOpen()
 {
     return data[OPEN];
 }
-float StockDay::getClose()
+double StockDay::getClose()
 {
     return data[CLOSE];
 }
-float StockDay::getAdjClose()
+double StockDay::getAdjClose()
 {
     return data[ADJCLOSE];
 }
-float StockDay::getHigh()
+double StockDay::getHigh()
 {
     return data[HIGH];
 }
-float StockDay::getLow()
+double StockDay::getLow()
 {
     return data[LOW];
 }

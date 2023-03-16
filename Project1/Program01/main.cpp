@@ -1,3 +1,6 @@
+/*
+
+*/
 #include <iostream>
 #include <iomanip>
 #include "StockList.h"
@@ -15,7 +18,8 @@ int main()
 {
     StockList stockData;
     string fileName;
-    double averageopen, averageclose, averagehigh, averagelow, averagevolume = 0;
+    double averageopen, averageclose, averagehigh, averagelow;
+    double averagevolume = 0;
     int countUp, countDown, neutral = 0;
     double sum = 0;
     double gainOrLoss = 0;
@@ -29,27 +33,28 @@ int main()
     div();
 
     numStocks = stockData.getSize();
-
+    
     for(int i = 0; i<numStocks; i++){
 
         averageopen += (stockData.getElement(i)).getOpen();
         averageclose += (stockData.getElement(i)).getClose();
         averagehigh += (stockData.getElement(i)).getHigh();
         averagelow += (stockData.getElement(i)).getLow();
-        averagevolume += (stockData.getElement(i)).getVolume();
+        averagevolume += static_cast<double>((stockData.getElement(i)).getVolume());
 
         sum += stockData.getElement(i).getOpen();
 
         gainOrLoss += stockData.getElement(i).getClose() - stockData.getElement(i).getOpen();
 
     }
-    averageopen = averageopen/numStocks;
-    averageclose = averageclose/numStocks;
-    averagehigh = averagehigh/numStocks;
-    averagelow = averagelow/numStocks;
-    averagevolume = averagevolume/numStocks;
 
-    for(int i = 1; i<(numStocks-1); i++){
+    averageopen = averageopen/(numStocks);
+    averageclose = averageclose/(numStocks);
+    averagehigh = averagehigh/(numStocks);
+    averagelow = averagelow/(numStocks);
+    averagevolume = averagevolume/(numStocks);
+
+    for(int i = 1; i<numStocks; i++){
         if(stockData.getElement(i).getClose()>stockData.getElement(i-1).getClose()){
             countUp++;
         }
@@ -60,8 +65,7 @@ int main()
             neutral++;
         }
     }
-
-    cout<<setprecision(8);
+    cout<<setprecision(6)<<fixed;
     cout<<"Number of Days: "<<stockData.getSize()<<endl;
     cout<<"Date Range: "<<stockData.getElement(0).getDate()<<" to "<<(stockData.getElement(stockData.getSize()-1)).getDate()<<endl;
     cout<<"Up Days: "<<countUp<<endl;
@@ -71,14 +75,14 @@ int main()
     cout<<"Average Closing Value: "<<averageclose<<endl;
     cout<<"Average High Value: "<<averagehigh<<endl;
     cout<<"Average Low Value: "<<averagelow<<endl;
-    cout<<setprecision(16)<<"Average Volume: "<<averagevolume<<endl;
+    cout<<"Average Volume: "<<averagevolume<<endl;
 
     cout<<endl;
 
-    cout<<setprecision(14)<<"Stock Per Day Investment Scheme"<<endl;
+    cout<<"Stock Per Day Investment Scheme"<<endl;
 
     div();
-
+    cout<<setprecision(6)<<fixed;
     cout<<"Stock Per Day Cost: "<<sum<<endl;
     cout<<"Stock Per Day Shares: "<<stockData.getSize()<<endl;
     cout<<"Stock Per Day Worth: "<<numStocks*(stockData.getElement((numStocks-1)).getClose())<<endl;
@@ -97,8 +101,6 @@ void loadDataFile(string name, StockList &arr)
     string line;
     int fileSize = count(inFile);
     inFile.open(name);
-    
-
     getline(inFile, line);
     for(int i = 0; i<fileSize; i++){
         getline(inFile, line);
@@ -109,7 +111,7 @@ void loadDataFile(string name, StockList &arr)
         int day = stoi(line.substr(0, line.find(',')));
         line = line.substr(line.find(',')+1);
         Date tempDate(month, day, year);
-        float tempArr[5];
+        double tempArr[5];
         int volume;
         tempArr[0] = stod(line.substr(0, line.find(',')));
         line = line.substr(line.find(',')+1);

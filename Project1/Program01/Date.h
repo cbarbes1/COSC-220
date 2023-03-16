@@ -1,3 +1,9 @@
+/*
+Author: Cole Barbes
+Creation Date: 03/10/23
+Last Update: 03/15/23
+Description: This is a class to hold date of stocks
+*/
 #ifndef DATE_H
 #define DATE_H
 #include <iostream>// include iostream for overload
@@ -13,8 +19,9 @@ class Date{
     public:
         Date();//default constructor
         Date(int, int, int); //constructor
-        void setDate(int, int, int);// set the date after declaration
-        int getMonth();
+        // accessors and mutators
+        void setDate(int, int, int);
+        int getMonth(); 
         int getDay();
         int getYear();
         bool operator==(const Date&); // overload == 

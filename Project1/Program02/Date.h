@@ -23,6 +23,7 @@ class Date{
         bool operator>(const Date&); // overload >
         bool operator<=(const Date&); // overload <=
         bool operator>=(const Date&); // overload >=
+        Date operator=(const Date&); // overload =
         friend ostream& operator<<(ostream &, const Date&);// overload out stream
 };
 #endif

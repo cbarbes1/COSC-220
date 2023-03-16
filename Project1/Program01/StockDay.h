@@ -1,3 +1,5 @@
+/*
+*/
 #ifndef STOCKDAY_H
 #define STOCKDAY_H
 
@@ -11,20 +13,20 @@ class StockDay{
         Date date;// hold the date
         const string type[6] = {"Open", "Close", "Adj. Close", "High", "Low", "Volume" };// array for each piece of data to have a cleaner print
         static const int SIZE = 5;
-        float data[SIZE]; // array to hold each data input
+        double data[SIZE]; // array to hold each data input
         int volume; // hold the volume
 
     public: 
         StockDay(); // default constructor
-        StockDay(Date&, float [], int); // constructor
+        StockDay(Date&, double [], int); // constructor
         // accessors and mutators 
-        void setStockDay(Date&, float [], int); 
+        void setStockDay(Date&, double [], int); 
         Date& getDate();
-        float getOpen(); 
-        float getClose();
-        float getAdjClose();
-        float getHigh();
-        float getLow();
+        double getOpen(); 
+        double getClose();
+        double getAdjClose();
+        double getHigh();
+        double getLow();
         int getVolume();
 
         StockDay operator=(const StockDay&);

@@ -1,4 +1,10 @@
-#include "Date.h"
+/*
+Author: Cole Barbes
+Creation Date: 03/10/23
+Last Update: 03/15/23
+*/
+#include "Date.h" // include header
+
 
 Date::Date()
 {
@@ -6,54 +12,78 @@ Date::Date()
     day = 02;
     year = 1960;
 }
+
+
 Date::Date(int m, int d, int y)
 {
     month = m;
     day = d;
     year = y;
 }
+
+
 void Date::setDate(int m, int d, int y)
 {
     month = m;
     day = d;
     year = y;
 }
+
+
 int Date::getMonth()
 {
     return month;
 }
+
+
 int Date::getDay()
 {
     return day;
 }
+
+
 int Date::getYear()
 {
     return year;
 }
+
+
 bool Date::operator==(const Date& right)
 {
     return ((month == right.month) && (day == right.day) && (year == right.year));
 }
+
+
 bool Date::operator!=(const Date& right)
 {
     return !((*this)==right);
 }
+
+
 bool Date::operator<(const Date& right)
 {
     return (year <= right.year && (month < right.month || day < right.day));
 }
+
+
 bool Date::operator>(const Date& right)
 {
     return (year >= right.year && (month > right.month || day > right.day));
 }
+
+
 bool Date::operator<=(const Date& right)
 {
     return (year <= right.year || (month <= right.month && day <= right.day));
 }
+
+
 bool Date::operator>=(const Date& right)
 {
     return (year >= right.year || (month >= right.month && day >= right.day));
 }
+
+
 ostream& operator<<(ostream & strm, const Date& obj)
 {
     strm<<obj.month<<"/"<<obj.day<<"/"<<obj.year;

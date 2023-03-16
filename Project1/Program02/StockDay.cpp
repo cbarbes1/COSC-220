@@ -1,3 +1,5 @@
+/*
+*/
 #include "StockDay.h"
 #include <iomanip>
 
