@@ -1,3 +1,10 @@
+/*
+* Author: Cole Barbes
+* Creation Date: 03/25/23
+* Last Update: 03/26/23
+* Description: This class is a templated version of an already created class for 2d array creation using pointers
+* Notes: This code is taken from a collection of different homeworks and edited to be implemented for any data type
+*/
 #ifndef VECTOR2D_H
 #define VECTOR2D_H
 
@@ -8,14 +15,13 @@
 
 using namespace std; 
 
-template<class T>
+template<class T>// this templates a type for needed declarations
 class Vector2D{
     private:
         vector<vector<T>> A;
         //size variables
         int rows;
         int cols;
-
         T defval;
     
     public:
@@ -41,6 +47,10 @@ class Vector2D{
 
 };
 
+/*
+Description: this is the constructor for this class
+Parameters: the rows and column count as well as the default value
+*/
 template<class T>
 Vector2D<T>::Vector2D(int r, int c, T d)
 {
@@ -280,6 +290,10 @@ vector<T>& Vector2D<T>::operator[](int n)
     return A[n];
 }
 
+/*
+Description: this function will check if two 2d array class objects are the same by size and by content by overloading the ==
+Parameters: the right hand side array
+*/
 template<class T>
 bool Vector2D<T>::operator==(const Vector2D &right)
 {
@@ -305,6 +319,11 @@ bool Vector2D<T>::operator==(const Vector2D &right)
     }
 }
 
+/*
+Description: this function uses the above overwritten operator to find if something is not equal
+Parameters: the right hand side array
+Return: boolean true false whether somethinh is not equal
+*/
 template<class T>
 bool Vector2D<T>::operator!=(const Vector2D &right)
 {

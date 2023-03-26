@@ -1,4 +1,11 @@
-
+/*
+* Author: Cole Barbes
+* Creation Date: 03/25/23
+* Last Update: 03/26/23
+* Description: This program implements both of the 2d array versions to create a dice roller simulatro
+* User Interface: <List of all user options and short descriptions of each option>
+* Notes: <Any notes that a user of the program should know about>
+*/
 #include "Vector2D.h"
 #include "Array2D.h"
 #include "Die.h"
@@ -11,15 +18,19 @@ bool rollCheck(Array2D<Die>&, int, int, Die);
 
 int main()
 {
-    srand(time(0));
-    int numTry = 0;
-    int numRolls = 0;
-    bool printer = false;
-    bool checker = false;
-    char checkPrint;
-    int count = 0;
-    bool vectOrArr = false;
+    srand(time(0)); // seed the rand 
 
+    // below are a list of the variables needed to execute the below code
+    int numTry = 0; // number of trials
+    int numRolls = 0; // number of rolls per trial
+    bool printer = false; // whether or not user wants to print array
+    bool checker = false; // check if trial is all same
+    char checkPrint; // character to take input 
+    int count = 0; // count for the trials that are all same
+    bool vectOrArr = false; // bool to check which array to use
+    //
+
+    // user input is take below for each needed piece of info
     cout<<"Would you like to use a 2D vector or a 2D array of pointers? (0 for vector and 1 for array of pointers) ";
     cin>>vectOrArr;
 
@@ -31,10 +42,13 @@ int main()
 
     cout<<"Do you want to display the array (Y/N): ";
     cin>>checkPrint;
+    // end of user input segment
 
-    if(checkPrint=='y'||checkPrint == 'Y'){ printer = true; }
+    if(checkPrint=='y'||checkPrint == 'Y'){ printer = true; } // convert character to boolean
 
-    Die Def;
+    Die Def; // create the basic element
+
+    // if 1 use the array of pointer
     if(vectOrArr){
         Array2D<Die> dieArr(numTry, numRolls, Def);
         for(int i = 0; i<numTry; i++)
@@ -64,6 +78,7 @@ int main()
         }
         cout<<"There were "<<count<<" matches of equal die in the "<<numTry<<" trials of the simulation."<<endl;
     }
+    // if 0 use the vector class
     else{
         Vector2D<Die> dieArr(numTry, numRolls, Def);
         for(int i = 0; i<numTry; i++)

@@ -1,3 +1,10 @@
+/*
+* Author: Cole Barbes
+* Creation Date: 03/25/23
+* Last Update: 03/26/23
+* Description: This class is a templated version of an already created class for 2d array creation using pointers
+* Notes: This code is taken from a collection of different homeworks and edited to be implemented for any data type
+*/
 #ifndef ARRAY2D_H
 #define ARRAY2D_H
 
@@ -7,15 +14,14 @@
 
 using namespace std; 
 
-template<class T>
+template<class T> // this templates a type for needed declarations
 class Array2D{
     private:
         T** A = nullptr;// Init the array double pointer to null
         //size variables
-        int rows;
-        int cols;
-
-        T defval;
+        int rows; // row count
+        int cols; // column count
+        T defval; // default value
     
     public:
         Array2D(int, int, T);// constructor with default values 
@@ -40,6 +46,10 @@ class Array2D{
 
 };
 
+/*
+Description: this is the constructor for this class
+Parameters: the rows and column count as well as the default value
+*/
 template<class T>
 Array2D<T>::Array2D(int r, int c, T d)
 {
@@ -66,7 +76,6 @@ Array2D<T>::Array2D(int r, int c, T d)
 /*
 * Description: Delete used memory to avoid memory leak
 */
-
 template<class T>
 Array2D<T>::~Array2D()
 {
@@ -286,7 +295,7 @@ ostream& operator<<(ostream &strm, const Array2D<T> &val)
 }
 
 /*
-* Description: overload the [] operator to return an address at a specifies index
+* Description: overload the [] operator to return an address at a specified index
 */
 template<class T>
 T* Array2D<T>::operator[](int n)
@@ -300,31 +309,46 @@ T* Array2D<T>::operator[](int n)
     }
 }
 
+/*
+Description: this function will check if two 2d array class objects are the same by size and by content by overloading the ==
+Parameters: the right hand side array
+*/
 template<class T>
 bool Array2D<T>::operator==(const Array2D &right)
 {
+    // if the size is the same, continue
     if(rows == right.rows && cols == right.cols){
         int countSame = 0;
+        // loop through the arrays
         for(int i = 0; i<rows; i++){
             for(int j = 0; j<cols; j++)
             {
+                // if equal add to the count
                 if(A[i][j] == right.A[i][j]){
                     countSame++;
                 }
             }
         }
+        // if count is the same as the size of the array return true
         if(countSame == (rows*cols)){
             return true;
         }
+        // if not return false
         else {
             return false;
         }
     }
+    // return false if size is not same
     else{
         return false;
     }
 }
 
+/*
+Description: this function uses the above overwritten operator to find if something is not equal
+Parameters: the right hand side array
+Return: boolean true false whether somethinh is not equal
+*/
 template<class T>
 bool Array2D<T>::operator!=(const Array2D &right)
 {
@@ -335,8 +359,6 @@ bool Array2D<T>::operator!=(const Array2D &right)
         return true;
     }
 }
-
-
 
 
 #endif
