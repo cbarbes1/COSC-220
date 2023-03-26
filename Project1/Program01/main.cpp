@@ -42,15 +42,15 @@ int main()
     // loop to find the averages and the sum of costs, as well as the gain or loss
     for(int i = 0; i<numStocks; i++){
 
-        averageopen += (stockData.getElement(i)).getOpen();
-        averageclose += (stockData.getElement(i)).getClose();
-        averagehigh += (stockData.getElement(i)).getHigh();
-        averagelow += (stockData.getElement(i)).getLow();
-        averagevolume += (stockData.getElement(i)).getVolume();
+        averageopen += stockData[i].getOpen();
+        averageclose += (stockData[i]).getClose();
+        averagehigh += (stockData[i]).getHigh();
+        averagelow += (stockData[i]).getLow();
+        averagevolume += (stockData[i]).getVolume();
 
-        sum += stockData.getElement(i).getOpen();
+        sum += stockData[i].getOpen(); // sum the cost of buying every day
 
-        gainOrLoss += stockData.getElement(i).getClose() - stockData.getElement(i).getOpen();
+        gainOrLoss += (stockData[i].getClose())-(stockData[i].getOpen()); // get the gain or loss of the stock over its entire life
 
     }
 
@@ -62,22 +62,24 @@ int main()
     averagevolume = averagevolume/(numStocks);
 
     // loop to count the up and down days
-    for(int i = 1; i<numStocks; i++){
-        if(stockData.getElement(i).getOpen()>stockData.getElement(i-1).getClose()){
+    for(int i = 0; i<numStocks; i++){
+        
+        if(stockData[i].getOpen()==stockData[i].getClose()){
+            neutral++;
+            
+        }
+        else if(stockData[i].getOpen()<stockData[i].getClose()){
             countUp++;
         }
-        else if(stockData.getElement(i).getOpen()<stockData.getElement(i-1).getClose()){
+        else if(stockData[i].getOpen()>stockData[i].getClose()){
             countDown++;
-        }
-        else if(stockData.getElement(i).getOpen()==stockData.getElement(i-1).getClose()){
-            neutral++;
         }
     }
 
     // output the first scheme
     cout<<setprecision(6)<<fixed;
     cout<<"Number of Days: "<<stockData.getSize()<<endl;
-    cout<<"Date Range: "<<stockData.getElement(0).getDate()<<" to "<<(stockData.getElement(stockData.getSize()-1)).getDate()<<endl;
+    cout<<"Date Range: "<<stockData[0].getDate()<<" to "<<stockData[(stockData.getSize()-1)].getDate()<<endl;
     cout<<"Up Days: "<<countUp<<endl;
     cout<<"Down Days: "<<countDown<<endl;
     cout<<"Neutral Days: "<<neutral<<endl;
@@ -97,7 +99,7 @@ int main()
     cout<<setprecision(6)<<fixed;
     cout<<"Stock Per Day Cost: "<<sum<<endl;
     cout<<"Stock Per Day Shares: "<<stockData.getSize()<<endl;
-    cout<<"Stock Per Day Worth: "<<numStocks*(stockData.getElement((numStocks-1)).getClose())<<endl;
+    cout<<"Stock Per Day Worth: "<<numStocks*(stockData[(numStocks-1)].getClose())<<endl;
 
     // output the third scheme
 
@@ -106,6 +108,8 @@ int main()
     div();
 
     cout<<"Buy/Sell Worth: "<<gainOrLoss<<endl;
+    
+    div();
 }
 
 /*
@@ -113,19 +117,23 @@ Description:
 */
 void loadDataFile(string name, StockList &arr)
 {
-    ifstream inFile;
-    inFile.open(name);
-    string line;
-    int fileSize = count(inFile);
-    inFile.open(name);
-    getline(inFile, line);
-    int year = 0;
+    ifstream inFile; // create the fileobject
+    inFile.open(name); // open the file
+    string line = "";  // create the line var
+    int fileSize = count(inFile); // count the file lines
+    inFile.open(name);// open the file
+    getline(inFile, line);// get the dumb line not needed
+    // create vars to hold the date 
+    int year = 0; 
     int month = 0;
     int day = 0;
     
-    double tempArr[6];
+    double tempArr[6]; // create the array for data
+
+    // for loop to get the data into the main array
     for(int i = 0; i<fileSize; i++){
-        getline(inFile, line);
+        getline(inFile, line);// get the line
+        // cut the line up  into each data segment
         year = stoi(line.substr(0, line.find("-")));
         line = line.substr(line.find('-')+1);
         month = stoi(line.substr(0, line.find('-')));
@@ -144,12 +152,12 @@ void loadDataFile(string name, StockList &arr)
         tempArr[2] = stod(line.substr(0, line.find(',')));
         line = line.substr(line.find(',')+1);
         tempArr[5] = stod(line);
-        if(i==1){ cout<<line<<endl;}
-        StockDay temp(tempDate, tempArr);
         
-        arr.append(temp);
+        StockDay temp(tempDate, tempArr); // create the stock data object
+        
+        arr.append(temp); // set into the array
     }
-    inFile.close();
+    inFile.close(); // close the file
 }
 
 /*
