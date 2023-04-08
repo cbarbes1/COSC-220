@@ -7,7 +7,7 @@ OBJS = main.o
 $(PROG) : $(OBJS)
 	$(CC) -o $(PROG) $(OBJS)
 
-main.o : main.cpp 
+main.o : main.cpp LinkedList.h
 	$(CC) $(CPPFLAGS) -c main.cpp
 
 clean: 

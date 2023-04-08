@@ -2,7 +2,6 @@
 // The node type is also a class template.
 #ifndef LINKEDLIST_H
 #define LINKEDLIST_H
-
 #include <iostream>
 
 using namespace std;
