@@ -1,7 +1,7 @@
 /*
 Author: Cole Barbes
 Creation Date: 03/10/23
-Last Update: 03/16/23
+Last Update: 04/13/23
 */
 #include "Date.h" // include header
 
@@ -103,7 +103,7 @@ Return true or false
 */
 bool Date::operator<(const Date& right)
 {
-    return (year < right.year || month < right.month || day < right.day);
+    return (year < right.year || (year == right.year && month < right.month) || (year == right.year && month == right.month && day < right.day));
 }
 
 /*
@@ -113,7 +113,7 @@ Return true or false
 */
 bool Date::operator>(const Date& right)
 {
-    return (year > right.year || month > right.month || day > right.day);
+    return (year > right.year || (year == right.year && month > right.month) || (year==right.year && month==right.month && day>right.day));
 }
 
 /*
@@ -123,7 +123,7 @@ Return true or false
 */
 bool Date::operator<=(const Date& right)
 {
-    return (year <= right.year || month <= right.month || day <= right.day);
+    return !((*this) > right);
 }
 
 /*
@@ -133,7 +133,7 @@ Return true or false
 */
 bool Date::operator>=(const Date& right)
 {
-    return (year >= right.year || month >= right.month || day >= right.day);
+    return !((*this)< right);
 }
 
 /*

@@ -1,3 +1,12 @@
+/*
+Author: Cole Barbes
+Creation Date: 04/13/23
+Last Update: 04/13/23
+Description: This main program implements polymorphism, dynamic binding, and object-oriented programming
+to collect data about NBA and NFL players which is given in csv files
+User Interface: Since this program would be implemented to clean data the user interface is simply running the program
+*/
+// include needed files
 #include <iostream>
 #include <vector>
 #include <fstream>
@@ -9,82 +18,126 @@
 
 using namespace std;
 
+// function prototype to load all data from the NBA file to the vector
 void LoadNBADataFile(string, vector<Person*>&);
+
+// function prototype to load all data from the NFL file to the vector
 void LoadNFLDataFile(string, vector<Person*>&);
+
+// function prototype to print the data in the vector
 void printData(vector<Person*>&, string, string);
 
+// function prototype to sort the vector by name ascending order
 void sortByName(vector<Person*>&);
 
+// function prototype to sort the vector by height in ascending order
 void sortByHeight(vector<Person*>&);
 
+// function prototype to sort the vector by weight in ascending order
 void sortByWeight(vector<Person*>&);
 
-void populateTallest(vector<Person*>&, vector<Person*>&);
+// function prototype to populate the tall player vector 
+void populateTall(vector<Person*>&, vector<Person*>&);
 
+// function protoypt to populate the big player list
 void populateBigPlayers(vector<Person*>&, vector<Person*>&);
 
+// function prototype to populate the tallest player list
 void populateTallestPlayers(vector<Person*>&, vector<Person*>&);
+
+//function prototype to populate the oldest player list
+void populateOldestPlayers(vector<Person*>&, vector<Person*>&);
+
+// functino prototype to populate the youngest player list
+void populateYoungestPlayers(vector<Person*>&, vector<Person*>&);
 
 int main()
 {
-    //create the array
+    //create the vectors
     vector<Person*> PlayerInfo;
     vector<Person*> TallPlayers;
     vector<Person*> BigPlayers;
     vector<Person*> YoungestPlayers;
+    vector<Person*> TallestPlayers;
+    vector<Person*> OldestPlayers;
 
-    string fileName = "PlayerList.txt";
+    string fileName = "PlayerList.txt"; //define the output file name
 
     // load Data into the vector
     LoadNBADataFile("NBA.csv", PlayerInfo);
     LoadNFLDataFile("NFL.csv", PlayerInfo);
 
     
-    printData(PlayerInfo, fileName, "Player List");
+    printData(PlayerInfo, fileName, "Player List"); // print the list 
 
-    sortByName(PlayerInfo);
+    sortByName(PlayerInfo); // sort the vector by name
 
-    populateTallest(PlayerInfo, TallPlayers);
+    populateTall(PlayerInfo, TallPlayers); // call the funtion to populate the tall player list
 
-    sortByHeight(PlayerInfo);
+    sortByHeight(TallPlayers); // sort the tall player list by height
 
-    populateBigPlayers(PlayerInfo, BigPlayers);
+    populateBigPlayers(PlayerInfo, BigPlayers); // call the function to populate the big player list
 
-    sortByWeight(BigPlayers);
+    sortByWeight(BigPlayers); // sort the big players by weight
 
-    printData(PlayerInfo, fileName, "Player List Sorted");
+    printData(PlayerInfo, fileName, "Player List Sorted"); // print the player info list sorted
 
+    printData(TallPlayers, fileName, "Tall Player List"); // pritn the tall player list
 
-    printData(TallPlayers, fileName, "Tallest Players");
-    
-    
+    // this block of code adds a line to the file that says the number of players in the tall player list
     ofstream outFile; // declare an output file for analysis of output
     outFile.open(fileName, ios::app); // open the file
 
     outFile<<"Number of players over 6 feet, 11 inches = "<<TallPlayers.size()<<endl;
+    outFile<<endl;
 
     outFile.close();
 
-    
 
-    printData(BigPlayers, "PlayerList.txt", "Biggest Players");
 
+    printData(BigPlayers, "PlayerList.txt", "Big Player List"); // print the big player list
+
+    // this block of code adds a line to the file that says the number of players over 350
     outFile.open(fileName, ios::app); // open the file
 
     outFile<<"Number of players over 350 lbs. = "<<BigPlayers.size()<<endl;
+    outFile<<endl;
     
     outFile.close();
+
+
+    populateTallestPlayers(TallPlayers, TallestPlayers); // populate the tallest player list
+
+    sortByName(TallestPlayers); // sort the tallest by name
+
+    printData(TallestPlayers, fileName, "Tallest Player List"); // print the list
+
+    populateOldestPlayers(PlayerInfo, OldestPlayers); // populate the oldest list
+
+    sortByName(OldestPlayers); // sort this list by name
+
+    printData(OldestPlayers, fileName, "Oldest Players List"); // print the oldest
+
+    populateYoungestPlayers(PlayerInfo, YoungestPlayers); // populate the youngest 
+
+    sortByName(YoungestPlayers); // sort by name
+
+    printData(YoungestPlayers, fileName, "Youngest Players List"); // print the list
+
 
     // delete the memory used inside the vector 
     for(unsigned long i = 0; i<PlayerInfo.size(); i++)
         delete PlayerInfo[i];
     
     PlayerInfo.clear(); // clear the vector memory
-
-    
+    TallPlayers.clear();
+    BigPlayers.clear();
+    YoungestPlayers.clear();
+    TallestPlayers.clear();
 
     return 0;
 }
+
 
 void LoadNBADataFile(string fileName, vector<Person*>& Data)
 {
@@ -192,6 +245,7 @@ void LoadNFLDataFile(string fileName, vector<Person*>& Data)
     }
 }
 
+
 void printData(vector<Person*>& Data, string fileName, string outputLabel)
 {
     ofstream outFile; // declare an output file for analysis of output
@@ -216,12 +270,6 @@ void sortByName(vector<Person*>& Data)
     for (int itemsSorted = 1; itemsSorted < size; itemsSorted++) {
         Person *temp = Data[itemsSorted];
         int loc = itemsSorted - 1;
-        for(int i = 0; i<size; i++){
-            if(Data[i]->formal() == Data[loc]->formal()){
-                
-            }
-        }
-        
         while (loc >= 0 && Data[loc]->formal() > temp->formal()) {
             Data[loc + 1] = Data[loc];
             loc = loc - 1;
@@ -261,7 +309,7 @@ void sortByWeight(vector<Person*>& Data)
     }
 }
 
-void populateTallest(vector<Person*>& initData, vector<Person*>& Data)
+void populateTall(vector<Person*>& initData, vector<Person*>& Data)
 {
     FeetInches Tallest(6, 11);
 
@@ -282,6 +330,47 @@ void populateBigPlayers(vector<Person*>& initData, vector<Person*>& Data)
     }
 }
 
-void populateTallestPlayers(vector<Person*>&, vector<Person*>&)
+void populateTallestPlayers(vector<Person*>& initData, vector<Person*>& Data)
 {
+    sortByHeight(initData);
+    for(int i = 0; i<static_cast<int>(initData.size()); i++){
+        if(initData[i]->getHeight()==initData.back()->getHeight()){
+            Data.push_back(initData[i]);
+        }
+    }
+}
+
+void populateOldestPlayers(vector<Person*>& initData, vector<Person*>& Data)
+{
+    Date maxAge = initData[0]->getDOB();
+    Date improperDate(0 ,0 , 0);
+
+    for(int i = 1; i<static_cast<int>(initData.size()); i++){
+        if(initData[i]->getDOB()<maxAge && initData[i]->getDOB()!=improperDate){
+            maxAge = initData[i]->getDOB();
+        }
+    }
+
+    for(int i = 0; i<static_cast<int>(initData.size()); i++){
+        if(initData[i]->getDOB() == maxAge){
+            Data.push_back(initData[i]);
+        }
+    }
+}
+
+void populateYoungestPlayers(vector<Person*>& initData, vector<Person*>& Data)
+{
+    Date minAge = initData[0]->getDOB();
+
+    for(int i = 1; i<static_cast<int>(initData.size()); i++){
+        if(initData[i]->getDOB()>minAge){
+            minAge = initData[i]->getDOB();
+        }
+    }
+
+    for(int i = 0; i<static_cast<int>(initData.size()); i++){
+        if(initData[i]->getDOB() == minAge){
+            Data.push_back(initData[i]);
+        }
+    }
 }

@@ -1,8 +1,9 @@
-#this make file was created on 04/08/23
+#this make file was created by cole barbes on 04/08/23
 PROG = project2
 CC = g++
-CPPFLAGS = -g -Wall -std=c++11
+CPPFLAGS = -g -Wall -std=c++11 
 OBJS = main.o Date.o FeetInches.o Person.o NFLPlayer.o NBAPlayer.o
+
 
 $(PROG) : $(OBJS)
 	$(CC) -o $(PROG) $(OBJS)

@@ -66,7 +66,7 @@ public:
 	friend ostream& operator <<(ostream&, const FeetInches&);
 	friend istream& operator >>(istream&, FeetInches&);
 
-	string toString();
+	string toString(); // return to a string
 };
 
 #endif

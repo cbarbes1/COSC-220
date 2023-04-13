@@ -2,7 +2,7 @@
 Author: Cole Barbes
 Creation Date: 03/10/23
 Last Update: 03/16/23
-Description: This is a class to hold date of stocks
+Description: This is a class to hold date
 */
 #ifndef DATE_H
 #define DATE_H
