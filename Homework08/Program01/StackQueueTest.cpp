@@ -11,7 +11,6 @@ int main() {
     Stack<double> dstack;
 
     checkEmpty(dstack);
-    cout << endl;
 
     dstack.push(7);
     dstack.push(25);
@@ -168,14 +167,16 @@ int main() {
     return 0;
 }
 
-template <class T> void checkEmpty(Queue<T> q) {
+template <class T> 
+void checkEmpty(Queue<T> q) {
     if (q.isEmpty())
         cout << "Empty" << endl;
     else
         cout << "Not Empty" << endl;
 }
 
-template <class T> void checkEmpty(Stack<T> s) {
+template <class T> 
+void checkEmpty(Stack<T> s) {
     if (s.isEmpty())
         cout << "Empty" << endl;
     else
