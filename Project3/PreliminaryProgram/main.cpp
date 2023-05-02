@@ -63,6 +63,10 @@ int main()
 
 }
 
+/*
+Description: This function runs a cpu simulation
+Parameters: Core count, range of execution load, priority range, processes per cycle, and the length of the simulation
+*/
 void runSimulation(int CPUCores, int minExe, int maxExe, int priorityLevel, double numberOfProcessesPerCycle, int lengthOfSim){
     long int idleTime = 0;
     long int numberExecuted = 0;
