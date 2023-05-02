@@ -52,7 +52,7 @@ int main()
     
     auto stop = high_resolution_clock::now();
     auto duration = duration_cast<microseconds>(stop-start);
-    cout << "Time to append with linked list: " << duration.count() / 1000000.0<< " seconds" << endl;
+    cout << "Time to append and sort with linked list: " << duration.count() / 1000000.0<< " seconds" << endl;
     //
 
     // this segment of code times appending to an array and then sorting using bubble sort
