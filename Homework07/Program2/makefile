@@ -1,5 +1,5 @@
-# this make file was created by cole barbes on 03/30/23
-PROG = lab6
+# this make file was created by cole barbes on 04/07/23
+PROG = homework7
 CC = g++
 CPPFLAGS = -g -Wall -std=c++11
 OBJS = main.o

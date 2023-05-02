@@ -4,7 +4,8 @@ Creation Date: 03/30/23
 Last Update: 03/30/23
 Description: This program will test the speed of appending and sorting data structures 
 User Interface: The interface simply askes the user for number of data items to append and sort
-Notes: <Any notes that a user of the program should know about>
+answer for question: The insertion sort was by far the fastest 
+and the linked list append was rediculously long almost as slow as the bubble sort
 */
 #include <iostream>
 #include <vector>
@@ -99,7 +100,9 @@ int main()
     return 0;
 }
 
-template<class T> void bubbleSort(T array[], int size) {
+
+template<class T> 
+void bubbleSort(T array[], int size) {
     int maxElement;
     int index;
 
@@ -111,6 +114,7 @@ template<class T> void bubbleSort(T array[], int size) {
         }
     }
 }
+
 
 template<class T> 
 void selectionSort(T array[], int size) {
@@ -129,6 +133,7 @@ void selectionSort(T array[], int size) {
         swap(array[minIndex], array[start]);
     }
 }
+
 
 template<class T> 
 void insertionSort(T array[], int size) {
