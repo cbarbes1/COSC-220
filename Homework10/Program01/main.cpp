@@ -1,7 +1,14 @@
+/*
+Author: Cole Barbes
+Creation Date: 05/05/23
+Last Update: 05/05/23
+Description: This program tests each sort by speed that is entered by the user
+*/
 #include <iostream>
 #include <chrono>
 #include <stdlib.h>
 #include "BinaryTree.h"
+#include <fstream>
 
 using namespace std;
 using namespace std::chrono;
@@ -22,22 +29,29 @@ void quickSort(T A[], int size);
 
 int main()
 {
-    void (*chosenFunction)(int A[], int size);
+    ofstream outFile; // init the file stream
+
+    outFile.open("sortData.txt", ios::app);// open the file and start at the end 
+
+    void (*chosenFunction)(int A[], int size); // create a function pointer
+
+    // take input from user
     int sortMethod = 0;
     cout << "Select Sorting Algorithm: 1. Merge Sort   2. Quick Sort   3. "
             "Tree Sort: ";
     cin >> sortMethod;
-
     int size = 0;
     cout << "Input Array Size: ";
     cin >> size;
-    int *A = new int[size];
-    srand(time(NULL));
 
+    int *A = new int[size];// create array 
+    srand(time(NULL)); // seed the rand 
+
+    // init to random numbers
     for (int i = 0; i < size; i++)
         A[i] = rand();
 
-
+    // set the function type
     if (sortMethod == 1)
         chosenFunction = mergeSort;
     else if (sortMethod == 2)
@@ -47,19 +61,23 @@ int main()
 
     high_resolution_clock::time_point t1 = high_resolution_clock::now();
 
-    chosenFunction(A, size);
+    chosenFunction(A, size); // call the given function
     
     high_resolution_clock::time_point t2 = high_resolution_clock::now();
     duration<double> time_span = duration_cast<duration<double>>(t2 - t1);
 
-    cout << "Execution Time: " << time_span.count() << " seconds." << endl;
+    outFile<< "Execution Time: " << time_span.count() << " seconds." << endl;
     
     
     delete[] A;
+    outFile.close(); // close the file
     return 0;
 }
 
-
+/*
+Description: This function takes an array and the size 
+Parameters: the array and the size
+*/
 template<class T>
 void treeSort(T A[], int size)
 {

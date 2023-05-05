@@ -1,0 +1,23 @@
+1. Execution Time: 0.141085 2. Execution Time: 0.113655 3. Execution Time: 0.754421 
+1. Execution Time: 0.295773 2. Execution Time: 0.238601 3. Execution Time: 1.73706 
+1. Execution Time: 0.448699 2. Execution Time: 0.367297 3. Execution Time: 2.62528 
+1. Execution Time: 0.613594 2. Execution Time: 0.494147 3. Execution Time: 3.71019 
+1. Execution Time: 0.778229 2. Execution Time: 0.622359 3. Execution Time: 4.86731 
+1. Execution Time: 1.61812 2. Execution Time: 1.30042 3. Execution Time: 11.2327 
+1. Execution Time: 3.37018 2. Execution Time: 2.68366 3. Execution Time: 28.9634 
+Execution Time: 5.09888 seconds.
+Execution Time: 4.13965 seconds.
+Execution Time: 7.01058 seconds.
+Execution Time: 5.60448 seconds.
+Execution Time: 8.87332 seconds.
+Execution Time: 7.13604 seconds.
+Execution Time: 10.7855 seconds.
+Execution Time: 8.57178 seconds.
+Execution Time: 14.5143 seconds.
+Execution Time: 11.5444 seconds.
+Execution Time: 18.203 seconds.
+Execution Time: 14.657 seconds.
+Execution Time: 16.3161 seconds.
+Execution Time: 29.1286 seconds.
+Execution Time: 1.41699 seconds.
+Execution Time: 3.92764 seconds.

@@ -36,7 +36,7 @@ class BinaryTree {
         int numberOfNodes(TreeNode*);
         int numberOfLeafNodes(TreeNode*);
         int height(TreeNode*);
-        void copyTree(TreeNode *&rootNode, const TreeNode *&rootOldNode);
+        void copyTree(TreeNode *&nodePtr, TreeNode *rootOldNode);
 
     public:
         // Constructor
@@ -45,10 +45,10 @@ class BinaryTree {
         }
 
         // copy constructor
-        BinaryTree(const BinaryTree<T>& obj);
+        BinaryTree(BinaryTree<T>& obj);
 
         // equals operator
-        BinaryTree<T>& operator=(const BinaryTree<T>& other);
+        BinaryTree<T>& operator=(BinaryTree<T>& other);
 
         // Destructor
         ~BinaryTree() {
@@ -394,31 +394,35 @@ void BinaryTree<T>::clear()
 }
 
 template<class T>
-void BinaryTree<T>::copyTree(TreeNode *&rootNode, const TreeNode *&rootOther)
+void BinaryTree<T>::copyTree(TreeNode*& nodePtr, TreeNode *rootOther)
 {
-    rootNode = new TreeNode;
-    rootNode->value = rootOther->value;
-    rootNode->left = nullptr;
-    rootNode->right = nullptr;
-
-    copyTree(rootNode->left, rootOther->left);
-    copyTree(rootNode->right, rootOther->right);
-}
-
-
-template<class T>
-BinaryTree<T>::BinaryTree(const BinaryTree<T>& obj)
-{
-    operator=(obj);
-}
-
-template<class T>
-BinaryTree<T>& BinaryTree<T>::operator=(const BinaryTree<T>& other){
-    if(other.root){
-        clear();
-        copyTree(root, other.root);
-        return *(this);
+    if(rootOther){
+        TreeNode* newNode = new TreeNode;
+        newNode->value = rootOther->value;
+        newNode->left = newNode->right = nullptr;
+        nodePtr = newNode;
+        copyTree(nodePtr->left, rootOther->left);
+        copyTree(nodePtr->right, rootOther->right);
     }
+    return;
+}
+
+
+template<class T>
+BinaryTree<T>::BinaryTree(BinaryTree<T>& obj)
+{
+    if(obj.root){
+        copyTree(root, obj.root);
+    }
+}
+
+template<class T>
+BinaryTree<T>& BinaryTree<T>::operator=(BinaryTree<T>& other){
+    clear();
+    if(other.root){
+        copyTree(root, other.root);
+    }
+    return *(this);
 }
 
 

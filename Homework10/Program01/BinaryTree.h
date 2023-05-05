@@ -108,12 +108,12 @@ This function simply destroys the sub tree of a given node recursively
 template<class T> 
 void BinaryTree<T>::destroySubTree(TreeNode* nodePtr)
 {
-    if(nodePtr){
-        if(nodePtr->left)
+    if(nodePtr){ // if valid node continue
+        if(nodePtr->left) // left tree deletion
             destroySubTree(nodePtr->left);
-        if(nodePtr->right)
+        if(nodePtr->right) // right tree deletion
             destroySubTree(nodePtr->right);
-        delete nodePtr;
+        delete nodePtr; // delete the node
     }
 }
 
@@ -288,9 +288,9 @@ template<class T>
 void BinaryTree<T>::loadInOrderRec(TreeNode *nodePtr, T A[], int &pos)
 {
     if(nodePtr){
-        loadInOrderRec(nodePtr->left, A, pos);
-        A[pos++] = nodePtr->value;
-        loadInOrderRec(nodePtr->right, A, pos);
+        loadInOrderRec(nodePtr->left, A, pos); // go to the left
+        A[pos++] = nodePtr->value; // visit the node
+        loadInOrderRec(nodePtr->right, A, pos); // go to the right
     }
 }
 
