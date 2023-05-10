@@ -334,88 +334,117 @@ void BinaryTree<T>::loadInOrder(T A[])
 }
 
 /*
+Description: This function counts the number of nodes in the tree recursively
+Parameters: The node of the tree to count
+return the number of nodes
 */
 template<class T>
 int BinaryTree<T>::numberOfNodes(TreeNode *nodePtr)
 {
-    if(nodePtr){
-        if(!nodePtr->left && !nodePtr->right){
+    if(nodePtr){// if the node is valid
+        if(!nodePtr->left && !nodePtr->right){// if the node is a leaf node
             return 1;
         }
-        else if(!(nodePtr->left)){
+        else if(!(nodePtr->left)){ // if the left node is null
             return numberOfNodes(nodePtr->right) + 1;
         }
-        else if(!(nodePtr->right)){
+        else if(!(nodePtr->right)){ // if the right node is null
             return numberOfNodes(nodePtr->left) + 1;
         }
-        else {
+        else { // if both are valid
             return numberOfNodes(nodePtr->left) + numberOfNodes(nodePtr->right) + 1;
         }
     }
     return 0;
 }
 
+/*
+Description: This function counts the leaf nodes in the tree leaf nodes being nodes which point to nothing
+Parameters: the tree node at the start of the tree
+return the number of leaf nodes 
+*/
 template<class T>
 int BinaryTree<T>::numberOfLeafNodes(TreeNode* nodePtr)
 {
-    if(nodePtr){
-        if(!(nodePtr->left)&&!(nodePtr->right)){
+    if(nodePtr){ // if valid continue
+        if(!(nodePtr->left)&&!(nodePtr->right)){ // if leaf node, count
             return 1;
         }
-        else {
+        else { // else add the resulting outputs of the left and right tree
             return numberOfLeafNodes(nodePtr->left)+numberOfLeafNodes(nodePtr->right);
         }
     }
     return 0;
 }
 
+/*
+Description: find the height of the given tree 
+Parameters: Node Ptr to the first node in the tree
+*/
 template<class T>
 int BinaryTree<T>::height(TreeNode *nodePtr){
-    if(!nodePtr){
+    if(!nodePtr){ // if not valid return 0
         return 0;
     }
 
-    if(!nodePtr->left && !nodePtr->right){
+    if(!nodePtr->left && !nodePtr->right){// if left and right are null return 1
         return 1;
     }
-    else {
+    else { 
         int left_height = 0;
         int right_height = 0;
-        left_height = height(nodePtr->left)+1;
-        right_height = height(nodePtr->right)+1;
-        return left_height>right_height ? left_height : right_height;
+        left_height = height(nodePtr->left)+1;// recurse to find the left height
+        right_height = height(nodePtr->right)+1; // recurse to find the right height
+        return left_height>right_height ? left_height : right_height; 
+        // if the value of left is greater than right return the left
+        // if the value is anything else return the right height, = will be valid < will be valid as well
     }
 }
 
+/*
+Description: This function clears the tree
+*/
 template<class T> 
 void BinaryTree<T>::clear()
 {
     destroySubTree(root);
 }
 
+/*
+Description: This function copies a given tree
+Parameters: the root and the nodeptr
+*/
 template<class T>
 void BinaryTree<T>::copyTree(TreeNode*& nodePtr, TreeNode *rootOther)
 {
-    if(rootOther){
-        TreeNode* newNode = new TreeNode;
-        newNode->value = rootOther->value;
-        newNode->left = newNode->right = nullptr;
-        nodePtr = newNode;
-        copyTree(nodePtr->left, rootOther->left);
-        copyTree(nodePtr->right, rootOther->right);
+    if(rootOther){ // if the tree is valid continue
+        TreeNode* newNode = new TreeNode; // create the node
+        newNode->value = rootOther->value; // set the value
+        newNode->left = newNode->right = nullptr; 
+        nodePtr = newNode;// set the pointer to the new node
+        copyTree(nodePtr->left, rootOther->left); // recurse to left subtree
+        copyTree(nodePtr->right, rootOther->right);// recurse to right subtree
     }
     return;
 }
 
-
+/*
+Description: The binary tree copy constructor 
+Parameters: The binary tree to be copied 
+*/
 template<class T>
 BinaryTree<T>::BinaryTree(BinaryTree<T>& obj)
 {
-    if(obj.root){
+    if(obj.root){ // check if the root exists
         copyTree(root, obj.root);
     }
 }
 
+/*
+Description: The equals operator overload
+Parameters: The other binary tree
+Return the binary tree
+*/
 template<class T>
 BinaryTree<T>& BinaryTree<T>::operator=(BinaryTree<T>& other){
     clear();
@@ -424,7 +453,5 @@ BinaryTree<T>& BinaryTree<T>::operator=(BinaryTree<T>& other){
     }
     return *(this);
 }
-
-
 
 #endif

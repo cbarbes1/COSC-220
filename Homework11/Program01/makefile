@@ -1,5 +1,5 @@
-# this make file was created by Cole Barbes on 05/03/23
-PROG = program2
+#this makefile was created by cole barbes 05/08/23
+PROG = homework11
 CC = g++
 CPPFLAGS = -g -Wall -std=c++11
 OBJS = main.o
@@ -7,7 +7,7 @@ OBJS = main.o
 $(PROG) : $(OBJS)
 	$(CC) -o $(PROG) $(OBJS)
 
-main.o : main.cpp BinaryTree.h
+main.o : main.cpp 
 	$(CC) $(CPPFLAGS) -c main.cpp
 
 clean:

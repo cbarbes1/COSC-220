@@ -1,3 +1,9 @@
+/*
+Author: Cole Barbes
+Creation Date: 05/05/23
+Last Update: 05/05/23
+Description: This program is test code given for the homework
+*/
 #include <cstdlib>
 #include <ctime>
 #include <iostream>
