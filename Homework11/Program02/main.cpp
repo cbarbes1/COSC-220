@@ -38,7 +38,7 @@ int main()
     cout<<"Please enter the number of searches you wish to perform:";
     cin>>numSearch;
     //
-
+    cout<<endl;
     int *array = new int[numInt]; // create the needed array
 
     for(int i = 0; i<numInt; i++){
@@ -49,14 +49,14 @@ int main()
     chrono::high_resolution_clock::time_point t1 = chrono::high_resolution_clock::now();
 
     // sort the array
-    sort(array, array+(numInt-1));
+    sort(array, array+(numInt));
     
     //
     chrono::high_resolution_clock::time_point t2 = chrono::high_resolution_clock::now();
 
     chrono::duration<double> time_span = chrono::duration_cast<chrono::duration<double>>(t2 - t1);
     
-    cout<<"Time to sort array (algorithm library method): "<<time_span.count()<<endl;
+    cout<<"Time to sort array (algorithm library method): "<<time_span.count()<<" Seconds."<<endl;
     total_ArrayTime = time_span.count();
     //
 
@@ -71,7 +71,7 @@ int main()
     t2 = chrono::high_resolution_clock::now();
 
     time_span = chrono::duration_cast<chrono::duration<double>>(t2 - t1);
-    cout<<"Time to insert into the Binary Tree: "<<time_span.count()<<endl;
+    cout<<"Time to insert into the Binary Tree: "<<time_span.count()<<" Seconds."<<endl;
     total_BinaryTime = time_span.count();
     //
 
@@ -86,8 +86,10 @@ int main()
     t2 = chrono::high_resolution_clock::now();
 
     time_span = chrono::duration_cast<chrono::duration<double>>(t2 - t1);
-    cout<<"Time to insert into the AVL Tree: "<<time_span.count()<<endl;
+    cout<<"Time to insert into the AVL Tree: "<<time_span.count()<<" Seconds."<<endl;
     total_AVLTime = time_span.count();
+    
+    cout<<endl;
     
     // time for the binary tree search node function
     t1 = chrono::high_resolution_clock::now();
@@ -101,7 +103,7 @@ int main()
     t2 = chrono::high_resolution_clock::now();
 
     time_span = chrono::duration_cast<chrono::duration<double>>(t2 - t1);
-    cout<<"Time to search binary tree: "<<time_span.count()<<endl;
+    cout<<"Time to search binary tree: "<<time_span.count()<<" Seconds."<<endl;
     total_BinaryTime += time_span.count();
 
     // time for the AVL tree seach node function
@@ -116,7 +118,7 @@ int main()
     t2 = chrono::high_resolution_clock::now();
 
     time_span = chrono::duration_cast<chrono::duration<double>>(t2 - t1);
-    cout<<"Time to search AVL tree: "<<time_span.count()<<endl;
+    cout<<"Time to search AVL tree: "<<time_span.count()<<" Seconds."<<endl;
     total_AVLTime +=time_span.count();
 
     // time for the binary search function
@@ -131,9 +133,10 @@ int main()
     t2 = chrono::high_resolution_clock::now();
 
     time_span = chrono::duration_cast<chrono::duration<double>>(t2 - t1);
-    cout<<"Time to search array: "<<time_span.count()<<endl;
+    cout<<"Time to search array: "<<time_span.count()<<" Seconds."<<endl;
     total_ArrayTime += time_span.count(); 
 
+    cout<<endl;
     // print the total end data
     cout<<"Total Times in Seconds "<<endl;
     cout<<"Binary Tree  "<<total_BinaryTime<<endl;
